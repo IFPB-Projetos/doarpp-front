@@ -1,30 +1,23 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
-import Menu from "../screens/Menu/Menu";
+import { createBrowserRouter } from "react-router-dom";
 import Feed from "../screens/Feed/Feed";
-
-function AppLayout(){
-    return (
-        <>
-            <Menu />
-            <Outlet />
-        </>
-    )
-}
+import App from "../App";
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <AppLayout />,
+        element: <App />,
         children: [
             {
-                path: "app",
-                element: <h1>Erro</h1>
+                path: "/",
+                element: <h1>AA</h1>,
+                errorElement: <h1>Erro</h1>
             },
             {
                 path: "feed",
-                element: <Feed />
+                element: <Feed />,
+                errorElement: <h1>Erro</h1>
             }
         ],
-        errorElement: <h1>Erro</h1>
+        
     },
 ])

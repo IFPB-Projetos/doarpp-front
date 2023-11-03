@@ -1,4 +1,4 @@
-import {Link, Outlet} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Menu(){
     return (
@@ -14,10 +14,6 @@ export default function Menu(){
                     <Link to={`feed`}>Feed</Link>
                 </li>
             </ul>
-
-            <div>
-                <Outlet />
-            </div>
         </>
     )
 }
