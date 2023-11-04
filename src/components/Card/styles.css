@@ -1,0 +1,40 @@
+.card-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--light-blue-green);
+    font-weight: bold;
+}
+
+.card-title {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+}
+
+.image-div {
+    background: var(--gray);
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.card-div img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.card-org-name {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+}
+
+.card-date {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 13px;
+}
