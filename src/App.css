@@ -1,6 +1,15 @@
-#root {
-  max-width: 1440px;
-  min-width: 100vh;
+@import url("./styles/theme.module.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  height: 100%;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: "Inter";
 }
