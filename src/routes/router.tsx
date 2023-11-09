@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Feed from "../screens/Feed/Feed";
 import Map from "../screens/Map/Map";
 import Profile from "../screens/Profile/Profile";
+import Main from "../screens/Main/Main";
 import App from "../App";
 
 export const router = createBrowserRouter([
@@ -11,7 +12,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <h1>Página principal</h1>,
+                element: <Main/>,
                 errorElement: <h1>Erro</h1>
             },
             {
