@@ -1,12 +1,11 @@
-import missingImage from "../../assets/image-missing.png";
 import Card from "../../components/Card/Card";
 import "./styles.css";
 
-export default function Feed(){
+export default function Feed() {
     return (
         <>
             <div id="feed-body">
-                <h1>Filtrar!</h1>
+                <h2>Filtrar!</h2>
                 <form className="filter">
                     <div>
                         <label>Localidade:</label>
@@ -19,7 +18,7 @@ export default function Feed(){
                     </div>
                 </form>
 
-                <h1>Ajude!</h1>
+                <h2>Ajude!</h2>
                 <div className="posts-div">
                     <Card />
                 </div>

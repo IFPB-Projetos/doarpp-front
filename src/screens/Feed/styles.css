@@ -1,23 +1,23 @@
 #feed-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
 }
 
 .filter label {
-    color: white;
-    font-weight: bold;
+  color: white;
+  font-weight: bold;
 }
 
-#feed-body h1 {
-    color: var(--blue-green);
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin-top: 20px;
+#feed-body h2 {
+  color: var(--blue-green);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 20px;
 }
 
 .posts-div {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
 }
