@@ -1,0 +1,106 @@
+.profile-body {
+    display: flex;
+    padding: 50px;
+    justify-content: space-between;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    max-width: 491px;
+    padding: 15px;
+    gap: 10px;
+    border-right: 1px solid black;
+    color: var(--light-blue-green);
+    font-weight: bold;
+}
+
+.profile-info > img {
+    min-width: 180px;
+    min-height: 180px;
+    max-width: 245px;
+    max-height: 245px;
+    border-radius: 50%;
+}
+
+.profile-info textarea{
+    width: 100%;
+    height: 100px;
+}
+
+.profile-info input, textarea {
+    background-color: rgba(217, 217, 217, 0.25);
+    padding: 2px;
+    border: none;
+    border-radius: 10px;
+    color: var(--light-blue-green);
+}
+
+.profile-info input::placeholder, textarea::placeholder {
+    color: var(--light-blue-green);
+}
+
+.profile-info input:read-only, textarea:read-only {
+    border:none;
+    background-image:none;
+    background-color:transparent;
+    box-shadow: none;
+    color: var(--light-blue-green);
+}
+
+.profile-info input:read-only {
+    width: 100%;
+    font-weight: bold;
+}
+
+.profile-info textarea:read-only {
+    width: 100%;
+    height: 100px;
+}
+
+#personName {
+    text-align: center;
+    font-size: 32px;
+}
+
+.profile-contact-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.profile-contact-info > div {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.profile-contact-info > div > label {
+    display: flex;
+    align-items: center;
+    margin-right: 3px;
+}
+
+.profile-contact-info img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
+
+.profile-fav {
+    width: 60%;
+    padding: 20px;
+}
+
+.profile-fav h2 {
+    text-align: center;
+    color: var(--light-blue-green);
+}
+
+.profile-fav-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+
+    gap: 30px;
+}
