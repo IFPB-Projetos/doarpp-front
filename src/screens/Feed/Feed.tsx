@@ -9,12 +9,12 @@ export default function Feed() {
                 <form className="filter">
                     <div>
                         <label>Localidade:</label>
-                        <input value="localidade"></input>
+                        <input placeholder="localidade"></input>
                     </div>
 
                     <div>
                         <label>Categorias:</label>
-                        <input />
+                        <input placeholder="localização" />
                     </div>
                 </form>
 
