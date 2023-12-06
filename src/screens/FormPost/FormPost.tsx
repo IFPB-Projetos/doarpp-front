@@ -4,7 +4,7 @@ import "./styles.css";
 
 export default function FormPost() {
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
-  const [imageSrc, setImageSrc] = useState(""); // Adicionando estado para a imagem
+  const [imageSrc, setImageSrc] = useState(""); 
 
   const displayFileName = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
