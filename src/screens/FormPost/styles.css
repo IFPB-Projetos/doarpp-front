@@ -1,0 +1,133 @@
+.telaForm{
+
+    margin: 76px;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    font-family: Inter;
+
+}
+
+.frasePrincipalTelaMain p{
+
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58.09px;
+    text-align: center;
+    color: white;
+
+}
+
+.formCriarPost{
+    height: 450px;
+    width: 450px;
+}
+
+.formCriarPost form{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 40px;
+}
+
+.formCriarPost form input[type="text"] {
+
+    width: 612.76px;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 48.41px;
+    color: #000000;
+
+}
+ 
+.formCriarPost form input[type="text"]::placeholder{
+    color: #000000;
+}
+
+.formCriarPost form .customFileUpload input[type="file"] {
+    display: none;
+}
+  
+#imagem {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.fileNameLabel{
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 48.41px;
+    color: #000000;
+    display: inline-block;
+}
+
+#fileName {
+    margin-left: 10px;
+    font-size: 16px;
+    text-align: center;
+    visibility: hidden;
+}
+
+.formCriarPost form textarea{
+    
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 48.41px;
+    color: #000000;
+    resize: none;
+}
+
+.botoesForm {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    
+}
+  
+.botoesForm button:nth-child(1){
+    padding: 10px;
+    background-color: #D9D9D9;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38.73px;
+   
+}
+
+.botoesForm button:nth-child(2){
+    padding: 10px;
+    background-color: #0d3b59;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38.73px;
+    text-align: center;
+}
+
+
+  
