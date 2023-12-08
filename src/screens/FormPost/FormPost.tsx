@@ -36,7 +36,7 @@ export default function FormPost() {
       </div>
 
       <div className="formCriarPost">
-        <form action="http://localhost:8080/posts" method="post">
+        <form action="http://localhost:8080/posts" method="post" encType="multipart/form-data">
           <input type="text" name="title" placeholder="Título" />
 
           <div className="customFileUpload">
