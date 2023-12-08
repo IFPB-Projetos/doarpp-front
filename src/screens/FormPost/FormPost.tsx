@@ -36,33 +36,33 @@ export default function FormPost() {
       </div>
 
       <div className="formCriarPost">
-        <form action="/" method="post">
-          <input type="text" name="titulo" placeholder="Título" />
+        <form action="http://localhost:8080/posts" method="post">
+          <input type="text" name="title" placeholder="Título" />
 
           <div className="customFileUpload">
             <input
               type="file"
               id="imagem"
-              name="imagem"
+              name="imageUpload"
               accept="image/*"
               onChange={displayFileName}
             />
             <label htmlFor="imagem" className="fileNameLabel">
               {imageSrc ? (
-                <img src={imageSrc} alt="Imagem selecionada" style={{ width: "100%", height: "100%", borderRadius: "10px" }} />
+                <img src={imageSrc} alt="Imagem selecionada" style={{ width: "100%", height: "100%", borderRadius: "10px", objectFit:"cover" }} />
               ) : (
                 fileName ? fileName : "Escolha um arquivo"
               )}
             </label>
           </div>
-          <textarea name="comentario" cols={30} rows={20}></textarea>
+          <textarea name="content" cols={30} rows={20}></textarea>
 
           <div className="botoesForm">
             <button type="button" onClick={handleCancel}>
               <img src={lixeira} alt="Lixeira" />
               Cancelar
             </button>
-            <button type="button" onClick={handleEnviar}>
+            <button type="submit" onClick={handleEnviar}>
               Enviar
             </button>
           </div>
