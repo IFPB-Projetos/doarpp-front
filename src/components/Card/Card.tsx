@@ -11,7 +11,7 @@ export default function Card({post}){
                 <div className="image-div">
                     <img src={post.image ? pathImage + post.image : missingImage} alt="Imagem do post"/>
                 </div>
-                <span className="card-org-name">{post.title}</span>
+                <span className="card-org-name">{post.content}</span>
                 <div className="card-date">
                     <span className="date">05/11/2023</span>
                     <span className="hours">Dom, 05:00</span>

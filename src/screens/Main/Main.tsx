@@ -1,6 +1,16 @@
+import { useNavigate } from "react-router-dom";
+
 import "./styles.css"
 
 export default function Main(){
+
+    const nav = useNavigate();
+
+    const handleCadastro = () =>{
+
+        nav("/cadastro");
+
+    }
 
     return(
         <div className="telaMain">
@@ -9,7 +19,7 @@ export default function Main(){
                 <div className="boxTexto">
                     <p>Bem-vindo ao Doarpp, o site que conecta você com as causas que mais importam</p>
                 </div>
-                <button>Ajude agora mesmo!</button>
+                <button onClick={handleCadastro}>Ajude agora mesmo!</button>
             </div>
         </div>
     )
