@@ -1,11 +1,14 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { api } from "../../utils/api";
 import lixeira from "../../assets/Delete.png";
 import "./styles.css";
 
 export default function FormPost() {
+  const nav = useNavigate();
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
-  const [imageSrc, setImageSrc] = useState(""); 
-
+  const [imageSrc, setImageSrc] = useState("");
+  
   const displayFileName = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
 
@@ -24,9 +27,24 @@ export default function FormPost() {
   };
 
   const handleCancel = () => {
+    nav("/");
   };
 
-  const handleEnviar = () => {
+  const handleEnviar = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData(event.currentTarget);
+
+      const response = await api.post("/posts", formData);
+
+      console.log(response.data);
+
+      nav("/postagens");
+
+    } catch (error) {
+      
+    }
   };
 
   return (
@@ -36,7 +54,12 @@ export default function FormPost() {
       </div>
 
       <div className="formCriarPost">
-        <form action="http://localhost:8080/posts" method="post" encType="multipart/form-data">
+        <form 
+          action="http://localhost:8080/posts" 
+          method="post" 
+          encType="multipart/form-data"
+          onSubmit={handleEnviar}
+        >
           <input type="text" name="title" placeholder="Título" />
 
           <div className="customFileUpload">
@@ -62,7 +85,7 @@ export default function FormPost() {
               <img src={lixeira} alt="Lixeira" />
               Cancelar
             </button>
-            <button type="submit" onClick={handleEnviar}>
+            <button type="submit">
               Enviar
             </button>
           </div>
