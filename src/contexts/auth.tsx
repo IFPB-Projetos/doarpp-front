@@ -1,5 +1,6 @@
 import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {api} from "../utils/api";
 
 const AuthContext = createContext({} as AuthContext);
@@ -18,6 +19,7 @@ type Props = {
 
 export function AuthProvider({children}:Props){
     const [user, setUser] = useState<object | null>(null);
+    const nav = useNavigate();
 
     useEffect(() => {
         const savedUser = localStorage.getItem("user");
@@ -36,7 +38,7 @@ export function AuthProvider({children}:Props){
             password: password
         })
 
-        login(email, password);
+        nav("/login")
     }
 
     async function login(email:string, password:string){
@@ -47,6 +49,7 @@ export function AuthProvider({children}:Props){
 
         localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("token", response.data.token);
+        nav("/postagens")
     }
 
     function logout(){

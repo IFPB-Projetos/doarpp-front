@@ -4,18 +4,12 @@ import logo from '../../assets/logo.svg';
 import "./style.css"
 import { useNavigate } from 'react-router-dom';
 
-export default function Cadastro(){
-    const nav = useNavigate();
-
-    const [name, setName] = useState("");
+export default function Login(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const context = useAuth();
-
-    const handleNameChange = (e : ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
-    }
+    const nav = useNavigate();
 
     const handleEmailChange = (e : ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -26,11 +20,11 @@ export default function Cadastro(){
     }
 
     const handleConfirmCadastro = async (e : MouseEvent<HTMLButtonElement>)=>{
-        context.signin(name, email, password);
+        context.login(email, password);
     }
 
     const redirect = () => {
-        nav("/login")
+        nav("/cadastro")
     }
 
     return (
@@ -39,16 +33,14 @@ export default function Cadastro(){
                 <img src={logo} alt="logo"/>
                 <h1>Doarpp</h1>
             </div>
-            
-            <input type="text" id='inputNomeCadastro' value={name} onChange={handleNameChange} placeholder='Usuário'/>
 
             <input type="text" id='inputEmailCadastro' value={email} onChange={handleEmailChange} placeholder='Email'/>
 
             <input type="password" id='inputSenhaCadastro' value={password} onChange={handlePasswordChange} placeholder='Senha'/>
         
-            <button id='buttonCadastro' onClick={handleConfirmCadastro}>Cadastrar</button>
+            <button id='buttonCadastro' onClick={handleConfirmCadastro}>Entrar</button>
 
-            <a href="" id='linkLogin' onClick={redirect}>Já possui uma conta? <br />Clique aqui para entrar!</a>
+            <a href="" id='linkLogin' onClick={redirect}>Não possui uma conta? <br />Clique aqui para registrar-se!</a>
         
         </div>
     );

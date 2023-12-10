@@ -6,6 +6,7 @@ import FormPost from "../screens/FormPost/FormPost";
 import Cadastro from "../screens/Cadastro/Cadastro";
 import Main from "../screens/Main/Main";
 import App from "../App";
+import Login from "../screens/Login/Login";
 
 export const router = createBrowserRouter([
     {
@@ -40,6 +41,11 @@ export const router = createBrowserRouter([
             {
                 path: "cadastro",
                 element: <Cadastro/>,
+                errorElement: <h1>Error</h1>
+            },
+            {
+                path: "login",
+                element: <Login/>,
                 errorElement: <h1>Error</h1>
             },
         ],

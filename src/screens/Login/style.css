@@ -1,0 +1,69 @@
+.cadastroDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    margin: 70px;
+}
+
+.cadastroDiv .logoDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.cadastroDiv .logoDiv h1{
+    font-family: "Inter";
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 77.45px;
+    color: white;
+}
+
+#inputNomeCadastro , #inputEmailCadastro, #inputSenhaCadastro{
+
+    width: 489px;
+    height: 87px;
+    border-radius: 10px;
+    background-color: #D9D9D940;
+    border: none;
+    color: white;
+    font: "Inter";
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38.73px;
+
+
+}
+
+#inputNomeCadastro::placeholder , #inputEmailCadastro::placeholder, #inputSenhaCadastro::placeholder{
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38.73px;
+    color: rgba(255, 255, 255, 0.305);
+    text-align: center;
+}
+
+#buttonCadastro{
+    width: 205.73px;
+    height: 90px;
+    background-color: #0078BC;
+    color: white;
+    font-family: "Inter";
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38.73px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+}
+
+#linkLogin{
+    color: white;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 38.73px;
+    text-decoration: none;
+}
