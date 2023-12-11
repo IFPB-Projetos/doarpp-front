@@ -14,16 +14,33 @@
 }
 
 .image-div {
+    position: relative; 
     background: var(--gray);
     width: 100%;
     height: 200px;
     border-radius: 10px;
+    overflow: hidden; 
+    position: relative; 
 }
 
-.card-div img {
+.card-div #postImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.card-div #editImage {
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+    width: 50px; 
+    height: 50px; 
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-top-right-radius: 10px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .card-org-name {

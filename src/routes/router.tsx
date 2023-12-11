@@ -5,6 +5,7 @@ import Profile from "../screens/Profile/Profile";
 import FormPost from "../screens/FormPost/FormPost";
 import Cadastro from "../screens/Cadastro/Cadastro";
 import Main from "../screens/Main/Main";
+import EditaForm from "../screens/EditaForm/EditaForm";
 import App from "../App";
 import Login from "../screens/Login/Login";
 
@@ -46,6 +47,11 @@ export const router = createBrowserRouter([
             {
                 path: "login",
                 element: <Login/>,
+                errorElement: <h1>Error</h1>
+            },
+            {
+                path: "editarpost/:id",
+                element: <EditaForm/>,
                 errorElement: <h1>Error</h1>
             },
         ],
