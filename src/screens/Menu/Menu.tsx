@@ -7,7 +7,7 @@ import { useAuth } from "../../contexts/auth";
 
 export default function Menu(){
     const context = useAuth();
-
+    
     return (
         <>
             <nav id="menu">
@@ -43,7 +43,7 @@ export default function Menu(){
                         </li>
                         }
                         <li  className="menu-link profile">
-                            <Link to={`perfil`}><img src={user} alt="Foto do usuário"/></Link>
+                            <Link to={`perfil/${context.user?.username}`}><img src={user} alt="Foto do usuário"/></Link>
                         </li>
                     </div>
                 </ul>
