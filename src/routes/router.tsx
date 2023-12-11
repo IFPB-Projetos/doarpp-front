@@ -35,7 +35,12 @@ export const router = createBrowserRouter([
                 errorElement: <h1>Erro</h1>
             },
             {
-                path: "perfil",
+                path: "perfil/:userName",
+                element: <Profile />,
+                errorElement: <h1>Erro</h1>
+            },
+            {
+                path: "perfil/me",
                 element: <Profile />,
                 errorElement: <h1>Erro</h1>
             },
