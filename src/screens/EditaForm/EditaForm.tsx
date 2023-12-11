@@ -126,7 +126,7 @@ export default function EditaForm() {
       />
     ) : (
       <img
-        src={ pathImage + imageSrc} // Adicione o pathImage apenas para a imagem do back-end
+        src={ pathImage + imageSrc} 
         alt="Imagem back"
         style={{ width: "100%", height: "100%", borderRadius: "10px", objectFit: "cover" }}
       />
