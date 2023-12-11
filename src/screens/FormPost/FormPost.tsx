@@ -38,8 +38,6 @@ export default function FormPost() {
 
       const response = await api.post("/posts", formData);
 
-      console.log(response.data);
-
       nav("/postagens");
 
     } catch (error) {

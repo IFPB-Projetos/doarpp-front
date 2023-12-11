@@ -64,18 +64,19 @@ export default function EditaForm() {
 
   const handleEnviar = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     try {
       const formData = new FormData(event.currentTarget);
-      formData.set("image", postData.imageSrc);
-
-      const response = await api.post(`/posts/${postId}`, formData);
-
+    
+      const response = await api.patch(`/posts/${postId}`, formData);
+  
       nav("/postagens");
     } catch (error) {
       console.error(error);
     }
   };
+  
+  
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPostData({ ...postData, title: event.target.value });
@@ -94,7 +95,7 @@ export default function EditaForm() {
       <div className="formCriarPost">
         <form
           action={`http://localhost:8080/posts/${postId}`}
-          method="post"
+          method="patch"
           encType="multipart/form-data"
           onSubmit={handleEnviar}
         >
