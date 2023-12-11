@@ -2,12 +2,13 @@ import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {api} from "../utils/api";
+import { User } from "../utils/types/User";
 
 const AuthContext = createContext({} as AuthContext);
 
 type AuthContext = {
     signed: boolean,
-    user: object | null,
+    user: User | null,
     signin(username:string, email:string, password:string): Promise<void>,
     login(email:string, password:string): Promise<void>,
     logout(): void,
@@ -18,7 +19,7 @@ type Props = {
 }
 
 export function AuthProvider({children}:Props){
-    const [user, setUser] = useState<object | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const nav = useNavigate();
 
     useEffect(() => {

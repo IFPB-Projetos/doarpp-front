@@ -6,11 +6,13 @@ import phoneImg from "../../assets/phone.png";
 import mailImg from "../../assets/mail.png";
 import "./styles.css";
 import { Post } from "../../utils/types/Post";
+import { useAuth } from "../../contexts/auth";
 
 export default function Profile(){
     const [posts, setPosts] = useState<Post[]>();
     const [id, setId] = useState("");
     const [name, setName] = useState("");
+    const [username, setUserName] = useState("");
     const [description, setDescription] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
@@ -19,6 +21,8 @@ export default function Profile(){
     const [imageSrc, setImageSrc] = useState("");
 
     let {userName} = useParams();
+    const context = useAuth();
+
     const pathImage = import.meta.env.VITE_API_URL + "/imgs/";
 
     async function getUser(){
@@ -30,8 +34,11 @@ export default function Profile(){
         if(response.data.image){
             setImageSrc(response.data.image);
         }
+        if(response.data.name){
+            setName(response.data.name);
+        }
         if(response.data.username){
-            setName(response.data.username);
+            setUserName(response.data.username);
         }
         if(response.data.description){
             setDescription(response.data.description);
@@ -86,10 +93,12 @@ export default function Profile(){
       };
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         try {
             const formData = new FormData(event.currentTarget)
 
             await api.patch("/users/me", formData, {headers: {'Content-Type': 'multipart-form-data'}});
+            setIsEditing(!isEditing);
         } catch(err){
             console.log(err)
         }
@@ -98,7 +107,7 @@ export default function Profile(){
     return (
         <>
             <div className="profile-body">
-                <form className="profile-info" onSubmit={handleSubmit} encType="multipart/form-data">
+                <form className="profile-info" onSubmit={handleSubmit} encType="multipart/form-data" method="POST">
                     <input type="hidden" name="userId" value={id}/>
 
                     <div className="customFileUpload">
@@ -136,15 +145,26 @@ export default function Profile(){
                             )}
                         </label>
                     </div>
+                    
+                    <div>
+                        <input 
+                            placeholder="Nome"
+                            readOnly={!isEditing}
+                            id="personName"
+                            name="name"
+                            value={name}
+                            onChange={handleNameChange}
+                        />
 
-                    <input 
-                        placeholder="Nome"
-                        readOnly={!isEditing}
-                        id="personName"
-                        name="name"
-                        value={name}
-                        onChange={handleNameChange}
-                    />
+                        <input 
+                            placeholder="Nome de usuário"
+                            readOnly
+                            id="username"
+                            name="username"
+                            value={username}
+                        />
+                    </div>
+                    
                     
                     <textarea 
                         readOnly={!isEditing}
@@ -167,17 +187,17 @@ export default function Profile(){
                         <div>
                             <label><img src={mailImg} alt="Icone de email"/></label>
                             <input
-                                readOnly={!isEditing}
+                                readOnly
                                 name="email"
                                 value={email}
                             />
                         </div>
                     </div>
 
-                    {!isEditing && (
+                    {id === context.user?.id && !isEditing &&  (
                         <button onClick={handleEditingChange}>editar</button>
                     )}
-                    {isEditing && (
+                    {id === context.user?.id && isEditing && (
                         <>
                         <button onClick={handleEditingChange}>voltar</button>
                         <button type="submit">salvar</button>
