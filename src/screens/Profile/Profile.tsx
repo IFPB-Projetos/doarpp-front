@@ -1,35 +1,37 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent, ChangeEvent } from "react";
 import { api } from "../../utils/api";
-import { User } from "../../utils/types/User";
 import Card from "../../components/Card/Card";
 import phoneImg from "../../assets/phone.png";
 import mailImg from "../../assets/mail.png";
 import "./styles.css";
 import { Post } from "../../utils/types/Post";
 
-type Props = {
-    me?: User
-}
-
 export default function Profile(){
-    const [user, setUser] = useState<User>();
-    const [posts, setPosts] = useState<Post[]>()
+    const [posts, setPosts] = useState<Post[]>();
+    const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [isEditing, setIsEditing] = useState(false);
+    const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
+    const [imageSrc, setImageSrc] = useState("");
+
     let {userName} = useParams();
+    const pathImage = import.meta.env.VITE_API_URL + "/imgs/";
 
     async function getUser(){
         const response = await api.get(`/users/${userName}`);
 
-        if(response.data.username){
-            setName(response.data.username);
+        if(response.data.id){
+            setId(response.data.id);
         }
         if(response.data.image){
-            //setImage(response.data.image);
+            setImageSrc(response.data.image);
+        }
+        if(response.data.username){
+            setName(response.data.username);
         }
         if(response.data.description){
             setDescription(response.data.description);
@@ -53,22 +55,102 @@ export default function Profile(){
         getUser();
     }, [])
 
+    const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setName(event.currentTarget.value)
+    }
+
+    const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setDescription(event.currentTarget.value);
+    }
+
+    const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setPhone(event.currentTarget.value)
+    }
+
+    const displayFileName = (event: ChangeEvent<HTMLInputElement>) => {
+        const input = event.target;
+    
+        if (input.files && input.files.length > 0) {
+          const file = input.files[0];
+          setFileName(file.name);
+      
+          const reader = new FileReader();
+          reader.onload = () => {
+            setImageSrc(reader.result as string);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          setFileName("Nenhum arquivo selecionado");
+          setImageSrc("");
+        }
+      };
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        try {
+            const formData = new FormData(event.currentTarget)
+
+            await api.patch("/users/me", formData, {headers: {'Content-Type': 'multipart-form-data'}});
+        } catch(err){
+            console.log(err)
+        }
+    }
+
     return (
         <>
             <div className="profile-body">
-                <form className="profile-info">
-                    <img src="https://0.gravatar.com/avatar/98b7bf232235300b9472ca44d4306596d246e0b0c025033bfcaa6b2ed12536ec?size=128" alt="Perfil"/>
+                <form className="profile-info" onSubmit={handleSubmit} encType="multipart/form-data">
+                    <input type="hidden" name="userId" value={id}/>
+
+                    <div className="customFileUpload">
+                        <input
+                        type="file"
+                        id="imagem"
+                        name="imageUpload"
+                        accept="image/*"
+                        onChange={(e) => {
+                            displayFileName(e);
+                        }}
+                        readOnly={!isEditing}
+                        />
+                        <label htmlFor="imagem" className="profile-image-label">
+                            {imageSrc ? (
+                            imageSrc.startsWith("data") ? (
+                            <img
+                            src={imageSrc} 
+                            alt="Imagem selecionada"
+                            style={{ width: "100%", height: "100%", borderRadius: "100%", objectFit: "contain" }}
+                            />
+                            ) : (
+                            <img
+                                src={ pathImage + imageSrc} 
+                                alt="Imagem back"
+                                className="profile-image"
+                            />
+                            )
+                            )
+                            :
+                            (
+                                <span>
+                                {fileName ? fileName : "Escolha um arquivo"}
+                                </span>
+                            )}
+                        </label>
+                    </div>
 
                     <input 
                         placeholder="Nome"
                         readOnly={!isEditing}
                         id="personName"
+                        name="name"
                         value={name}
+                        onChange={handleNameChange}
                     />
                     
                     <textarea 
                         readOnly={!isEditing}
                         value={description}
+                        name="description"
+                        onChange={handleDescriptionChange}
                     />
 
                     <div className="profile-contact-info">
@@ -77,13 +159,16 @@ export default function Profile(){
                             <label><img src={phoneImg} alt="Icone de telefone" /></label>
                             <input
                                 readOnly={!isEditing}
+                                name="phone"
                                 value={phone}
+                                onChange={handlePhoneChange}
                             />
                         </div>
                         <div>
                             <label><img src={mailImg} alt="Icone de email"/></label>
                             <input
                                 readOnly={!isEditing}
+                                name="email"
                                 value={email}
                             />
                         </div>
@@ -93,7 +178,10 @@ export default function Profile(){
                         <button onClick={handleEditingChange}>editar</button>
                     )}
                     {isEditing && (
+                        <>
                         <button onClick={handleEditingChange}>voltar</button>
+                        <button type="submit">salvar</button>
+                        </>
                     )}
                 </form>
 
