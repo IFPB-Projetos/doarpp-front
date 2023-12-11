@@ -7,14 +7,14 @@ import { useNavigate } from 'react-router-dom';
 export default function Cadastro(){
     const nav = useNavigate();
 
-    const [name, setName] = useState("");
+    const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const context = useAuth();
 
-    const handleNameChange = (e : ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
+    const handleUserNameChange = (e : ChangeEvent<HTMLInputElement>) => {
+        setUserName(e.target.value);
     }
 
     const handleEmailChange = (e : ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +26,7 @@ export default function Cadastro(){
     }
 
     const handleConfirmCadastro = async (e : MouseEvent<HTMLButtonElement>)=>{
-        context.signin(name, email, password);
+        context.signin(userName, email, password);
     }
 
     const redirect = () => {
@@ -40,7 +40,7 @@ export default function Cadastro(){
                 <h1>Doarpp</h1>
             </div>
             
-            <input type="text" id='inputNomeCadastro' value={name} onChange={handleNameChange} placeholder='Usuário'/>
+            <input type="text" id='inputNomeCadastro' value={userName} onChange={handleUserNameChange} placeholder='Usuário'/>
 
             <input type="text" id='inputEmailCadastro' value={email} onChange={handleEmailChange} placeholder='Email'/>
 
