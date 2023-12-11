@@ -7,6 +7,7 @@ import "./style.css";
 export default function EditaForm() {
   const nav = useNavigate();
   const location = useLocation();
+
   const postId = location.state?.id;
   const pathImage = import.meta.env.VITE_API_URL + "imgs/";
 
@@ -16,6 +17,7 @@ export default function EditaForm() {
     title: "",
     content: "",
     imageSrc: "",
+    userId: "",
   });
 
   useEffect(() => {
@@ -28,9 +30,12 @@ export default function EditaForm() {
           title: postDataFromApi.title,
           content: postDataFromApi.content,
           imageSrc: postDataFromApi.image,
+          userId : postDataFromApi.user.id,
         });
 
         setImageSrc(postDataFromApi.image);
+
+        console.log(postDataFromApi);
       } catch (error) {
         console.error(error);
       }
@@ -155,6 +160,8 @@ export default function EditaForm() {
             </button>
             <button type="submit">Enviar</button>
           </div>
+
+          <input type="hidden"  value={postData.userId} name="userId"/>
         </form>
       </div>
     </div>

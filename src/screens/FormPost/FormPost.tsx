@@ -4,15 +4,21 @@ import { api } from "../../utils/api";
 import lixeira from "../../assets/Delete.png";
 import "./styles.css";
 
+
 export default function FormPost() {
   const nav = useNavigate();
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
   const [imageSrc, setImageSrc] = useState("");
   
+  
+  const dadoLocalUser = localStorage.getItem("user");
+  const user = JSON.parse(dadoLocalUser);
+
   const displayFileName = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
 
     if (input.files && input.files.length > 0) {
+
       setFileName(input.files[0].name);
       const reader = new FileReader();
       reader.onload = () => {
@@ -87,6 +93,7 @@ export default function FormPost() {
               Enviar
             </button>
           </div>
+          <input type="hidden" value={user.id} name="userId" />
         </form>
       </div>
     </div>
