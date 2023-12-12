@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import missingImage from "../../assets/image-missing.png";
 import editImage from "../../assets/Edit.png";
+import { Post } from "../../utils/types/Post";
 import "./styles.css";
 
-
-export default function Card({post}){
+interface CardPost {
+    post : Post;
+}
+  
+export default function Card({post} : CardPost){
     const pathImage = import.meta.env.VITE_API_URL + "imgs/";
     const nav = useNavigate();
 

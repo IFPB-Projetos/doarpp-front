@@ -20,6 +20,9 @@ export default function EditaForm() {
     userId: "",
   });
 
+  const [titleError, setTitleError] = useState("");
+  const [contentError, setContentError] = useState("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,12 +33,10 @@ export default function EditaForm() {
           title: postDataFromApi.title,
           content: postDataFromApi.content,
           imageSrc: postDataFromApi.image,
-          userId : postDataFromApi.user.id,
+          userId: postDataFromApi.user.id,
         });
 
         setImageSrc(postDataFromApi.image);
-
-        console.log(postDataFromApi);
       } catch (error) {
         console.error(error);
       }
@@ -50,7 +51,7 @@ export default function EditaForm() {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       setFileName(file.name);
-  
+
       const reader = new FileReader();
       reader.onload = () => {
         setImageSrc(reader.result as string);
@@ -61,7 +62,6 @@ export default function EditaForm() {
       setImageSrc("");
     }
   };
-  
 
   const handleCancel = () => {
     nav("/");
@@ -69,19 +69,30 @@ export default function EditaForm() {
 
   const handleEnviar = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+
+    setTitleError("");
+    setContentError("");
+
+    if (!postData.title.trim()) {
+      setTitleError("Campo necessário");
+    }
+
+    if (!postData.content.trim()) {
+      setContentError("Campo necessário");
+    }
+
+    if (!postData.title.trim() || !postData.content.trim()) {
+      return;
+    }
+
     try {
       const formData = new FormData(event.currentTarget);
-    
       const response = await api.patch(`/posts/${postId}`, formData);
-  
       nav("/postagens");
     } catch (error) {
       console.error(error);
     }
   };
-  
-  
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPostData({ ...postData, title: event.target.value });
@@ -111,6 +122,7 @@ export default function EditaForm() {
             value={postData.title}
             onChange={handleTitleChange}
           />
+          {titleError && <span style={{ color: "red" }}>{titleError}</span>}
 
           <div className="customFileUpload">
             <input
@@ -122,28 +134,35 @@ export default function EditaForm() {
                 displayFileName(e);
               }}
             />
-        <label htmlFor="imagem" className="fileNameLabel">
-  {imageSrc ? (
-    imageSrc.startsWith("data") ? (
-      <img
-        src={imageSrc} 
-        alt="Imagem selecionada"
-        style={{ width: "100%", height: "100%", borderRadius: "10px", objectFit: "cover" }}
-      />
-    ) : (
-      <img
-        src={ pathImage + imageSrc} 
-        alt="Imagem back"
-        style={{ width: "100%", height: "100%", borderRadius: "10px", objectFit: "cover" }}
-      />
-    )
-  ) : (
-    <span>
-      {fileName ? fileName : "Escolha um arquivo"}
-    </span>
-  )}
-</label>
-
+            <label htmlFor="imagem" className="fileNameLabel">
+              {imageSrc ? (
+                imageSrc.startsWith("data") ? (
+                  <img
+                    src={imageSrc}
+                    alt="Imagem selecionada"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "10px",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={pathImage + imageSrc}
+                    alt="Imagem back"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "10px",
+                      objectFit: "cover",
+                    }}
+                  />
+                )
+              ) : (
+                <span>{fileName ? fileName : "Escolha um arquivo"}</span>
+              )}
+            </label>
           </div>
           <textarea
             name="content"
@@ -152,6 +171,7 @@ export default function EditaForm() {
             value={postData.content}
             onChange={handleContentChange}
           ></textarea>
+          {contentError && <span style={{ color: "red" }}>{contentError}</span>}
 
           <div className="botoesForm">
             <button type="button" onClick={handleCancel}>
@@ -161,7 +181,7 @@ export default function EditaForm() {
             <button type="submit">Enviar</button>
           </div>
 
-          <input type="hidden"  value={postData.userId} name="userId"/>
+          <input type="hidden" value={postData.userId} name="userId" />
         </form>
       </div>
     </div>
