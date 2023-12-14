@@ -27,19 +27,19 @@ export default function PostDetail() {
     return (
         <>
             <div className='post-detail-body'>
-                {post ? (
+                {post && owner ? (
                     <>
                         <div id="post-detail-header">
                             <span id="post-detail-title">{post.title}</span>
-                            <span id="post-detail-category">{}</span>
+                            <span id="post-detail-category">Categoria</span>
                             <span id="post-detail-favorite-icon"></span>
                         </div>
 
                         <img id="post-detail-image"src={pathImage + post.image}/>
 
                         <div id="post-detail-author">
-                            <img id="post-detail-author-image" src={pathImage + owner?.image}/>
-                            <span id="post-detail-author-name">{owner?.username}</span>
+                            <img id="post-detail-author-image" src={pathImage + owner.image}/>
+                            <span id="post-detail-author-name">{owner.username}</span>
                         </div>
 
                         <p id="post-detail-content">
