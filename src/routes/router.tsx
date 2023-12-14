@@ -8,6 +8,7 @@ import Main from "../screens/Main/Main";
 import EditaForm from "../screens/EditaForm/EditaForm";
 import App from "../App";
 import Login from "../screens/Login/Login";
+import PostDetail from "../screens/PostDetail/PostDetail";
 
 export const router = createBrowserRouter([
     {
@@ -37,6 +38,11 @@ export const router = createBrowserRouter([
             {
                 path: "perfil/:userName",
                 element: <Profile />,
+                errorElement: <h1>Erro</h1>
+            },
+            {
+                path: "/postagens/detalhes/:postId",
+                element: <PostDetail />,
                 errorElement: <h1>Erro</h1>
             },
             {
