@@ -1,5 +1,6 @@
+// Importe useState e useEffect no início do seu arquivo, se ainda não estiverem importados
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import missingImage from "../../assets/image-missing.png";
 import editImage from "../../assets/Edit.png";
 import { Post } from "../../utils/types/Post";
@@ -17,6 +18,7 @@ export default function Card({ post }: CardPost) {
   const pathImage = import.meta.env.VITE_API_URL + "imgs/";
   const nav = useNavigate();
   const [isFavorite, setIsFavorite] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
 
   const dadoLocalUser = localStorage.getItem("user") || "";
   const user = JSON.parse(dadoLocalUser);
@@ -35,15 +37,20 @@ export default function Card({ post }: CardPost) {
 
   const handleFavoriteClick = async () => {
     try {
-        if (isFavorite) {
-          await api.delete(`/favorite/${post.id}`);
-        }
-        else {
-            await api.post("/favorite", {
-                userId: user.id, 
-                postId: post.id,
-            });
+      if (isFavorite) {
+        await api.delete(`/favorite/${post.id}`);
+      } else {
+        await api.post("/favorite", {
+          userId: user.id,
+          postId: post.id,
+        });
       }
+
+      setAnimationClass("animate-heart");
+
+      setTimeout(() => {
+        setAnimationClass("");
+      }, 1000);
 
       setIsFavorite(!isFavorite);
     } catch (error) {
@@ -66,7 +73,7 @@ export default function Card({ post }: CardPost) {
 
   return (
     <>
-      <div className="card-div">
+      <div className="card-div" >
         <span className="card-title">{post.title}</span>
         <div className="image-div">
           <img
@@ -86,6 +93,7 @@ export default function Card({ post }: CardPost) {
               src={isFavorite ? heart : favorite}
               alt="icone favorito"
               onClick={handleFavoriteClick}
+              className={`${animationClass}`}
             />
           </div>
         </div>
