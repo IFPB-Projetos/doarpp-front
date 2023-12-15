@@ -29,6 +29,8 @@ export default function Profile() {
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
   const [imageSrc, setImageSrc] = useState("");
   const [isFileInputActive, setIsFileInputActive] = useState(false);
+  const [favoritePosts, setFavoritePosts] = useState<Post[]>([]);
+
 
   let { userName } = useParams();
   const context = useAuth();
@@ -66,7 +68,29 @@ export default function Profile() {
       setLocation(response.data.location)
     }
 
+    await pegarFavs();
+    
   }
+
+async function pegarFavs() {
+  try {
+    const favoritesResponse = await api.get(`/favorite/user/${id}`);
+
+    const favoriteIds = favoritesResponse.data.map(favorite=> favorite.postId);
+
+    const detailedPosts = [];
+
+    for (const postId of favoriteIds) {
+      const postDetailsResponse = await api.get(`/posts/${postId}`);
+      const postDetails = postDetailsResponse.data;
+      detailedPosts.push(postDetails);
+    }
+
+    setFavoritePosts(detailedPosts);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
   const handleEditingChange = () => {
     setIsEditing(!isEditing);
@@ -235,14 +259,33 @@ export default function Profile() {
           )}
         </form>
 
-        <div className="profile-fav">
-          <h2>Postagens</h2>
-          <div className="profile-fav-grid">
-            {posts?.map((post) => (
-              <Card post={post} key={post.id} />
-            ))}
+        <div className="postsFav">
+
+          <div className="profile-fav">
+            <h2>Postagens</h2>
+            <div className="profile-fav-grid">
+              {posts?.map((post) => (
+                <Card post={post} key={post.id} />
+              ))}
+            </div>
           </div>
+
+          <div className="profile-favoritos">
+            <h2>Favoritados</h2>
+            <div className="profile-fav-grid">
+              {favoritePosts?.map((post) => (
+                <Card
+                  key={post.id}
+                  post={post}
+                />
+              ))}
+            </div>
+          </div>
+
+
+
         </div>
+        
       </div>
     </>
   )

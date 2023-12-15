@@ -1,4 +1,3 @@
-// Importe useState e useEffect no início do seu arquivo, se ainda não estiverem importados
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import missingImage from "../../assets/image-missing.png";
