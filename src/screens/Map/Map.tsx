@@ -4,6 +4,7 @@ import { useAuth } from "../../contexts/auth";
 import { api } from "../../utils/api";
 import { useEffect, useState } from "react";
 import { User } from "../../utils/types/User";
+import CustomPopup from "../../components/CustomPopup/CustomPopup";
 
 export default function Map(){
     const [users, setUsers] = useState<User[]>();
@@ -27,11 +28,12 @@ export default function Map(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     { users ? (
-
                         users.map((user) => (
+                            user.location ?
                             <Marker position={{lat: user.location.coordinates[0], lng: user.location.coordinates[1]}} key={user.id}>
-                                <Popup>TESTE</Popup>
+                                <CustomPopup user={user}/>
                             </Marker>
+                            : null
                         ))
                     ): null}
                 </MapContainer>

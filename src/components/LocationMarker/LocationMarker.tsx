@@ -1,6 +1,5 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
+import { useMapEvents } from "react-leaflet";
 import { Dispatch, SetStateAction, useState } from "react";
-import Leaflet, { LatLngExpression } from "leaflet";
 import "./styles.css";
 
 type Position = {

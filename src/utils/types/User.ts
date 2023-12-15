@@ -1,6 +1,4 @@
-type Position = {
-    coordinates: [number, number]
-}
+import { Position } from "./Location";
 
 export type User = {
     id: string,

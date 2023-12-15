@@ -15,8 +15,6 @@ type Props = {
 }
 
 export default function InputPosition({position, setPosition}:Props){
-    const initialPosition = [-6.88634, -38.5614]
-
     return (
         <>
             <div id="map-body">
@@ -27,7 +25,7 @@ export default function InputPosition({position, setPosition}:Props){
                     />
                     <LocationMarker setPosition={setPosition}/>
                     {position ? (
-                        <Marker position={position}/>
+                        <Marker position={{lat: position.lat, lng: position.lng}}/>
                     )
                     :
                     null

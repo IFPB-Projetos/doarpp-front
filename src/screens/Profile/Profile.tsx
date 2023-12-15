@@ -7,8 +7,8 @@ import mailImg from "../../assets/mail.png";
 import "./styles.css";
 import { Post } from "../../utils/types/Post";
 import { useAuth } from "../../contexts/auth";
-import { LatLngExpression } from "leaflet";
 import InputPosition from "../../components/InputPosition/InputPosition";
+import { Location } from "../../utils/types/Location";
 
 type Position = {
   lat: number,
@@ -23,7 +23,8 @@ export default function Profile() {
   const [description, setDescription] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [location, setLocation] = useState<Position>({lat: 0, lng: 0})
+  const [location, setLocation] = useState<Location>();
+  const [position, setPosition] = useState<Position>({lat: -6.88634, lng: -38.5614})
   const [isEditing, setIsEditing] = useState(false);
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
   const [imageSrc, setImageSrc] = useState("");
@@ -107,8 +108,8 @@ export default function Profile() {
     try {
       const formData = new FormData(event.currentTarget)
 
-      formData.append("lat", `${location.lat}`);
-      formData.append("lng", `${location.lng}`)
+      formData.append("lat", `${position.lat}`);
+      formData.append("lng", `${position.lng}`)
 
       await api.patch("/users/me", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       setIsEditing(!isEditing);
@@ -220,7 +221,7 @@ export default function Profile() {
           </div>
 
           {id === context.user?.id && isEditing && (
-            <InputPosition position={location} setPosition={setLocation}/>
+            <InputPosition position={position} setPosition={setPosition}/>
           )}
 
           {id === context.user?.id && !isEditing && (
