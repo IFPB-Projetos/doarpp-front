@@ -1,3 +1,7 @@
+type Position = {
+    coordinates: [number, number]
+}
+
 export type User = {
     id: string,
     name: string,
@@ -7,5 +11,5 @@ export type User = {
     password: string,
     description: string,
     phone: string,
-    location: string
+    location: Position,
 }
