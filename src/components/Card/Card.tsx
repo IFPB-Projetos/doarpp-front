@@ -6,9 +6,8 @@ import { Post } from "../../utils/types/Post";
 import heart from "../../assets/Heart.png";
 import favorite from "../../assets/Favorite.png";
 import { api } from "../../utils/api";
-
 import "./styles.css";
-import { useAuth } from "../../contexts/auth";
+import { User } from "../../utils/types/User";
 
 interface CardPost {
   post: Post;
@@ -20,10 +19,12 @@ export default function Card({ post }: CardPost) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
 
-  // const dadoLocalUser = localStorage.getItem("user") || "";
-  // const user = JSON.parse(dadoLocalUser);
-  const {user} = useAuth()
-
+  const dadoLocalUser = localStorage.getItem("user") || "";
+  let user: User;
+  if(dadoLocalUser){
+    user = JSON.parse(dadoLocalUser);
+  }
+  
   useEffect(() => {
     checkIsFavorite();
   }, []);

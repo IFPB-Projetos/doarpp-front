@@ -251,16 +251,6 @@ async function pegarFavs(id: string) {
                 :
                 <span>O usuário ainda não fez nenhum post!</span>
               }
-
-              {/* {profile.posts ? (
-              <div className="profile-cards-grid">
-                {profile.posts.map((post) => (
-                  <Card post={post} key={post.id} />
-                ))}
-              </div>
-              ) : (
-                <span>O usuário ainda não fez nenhum post!</span>
-              )} */}
             </div>
 
             <div className="profile-favoritos">
@@ -271,19 +261,6 @@ async function pegarFavs(id: string) {
                 :
                 <span>O usuário ainda não fez nenhum post!</span>
               }
-
-              {/* {favoritePosts ? (
-              <div className="profile-cards-grid">
-                {favoritePosts.map((post, index) => (
-                  <Card
-                    key={index}
-                    post={post}
-                  />
-                ))}
-              </div>
-              ) : (
-                <span>O usuário ainda não favoritou nenhum post!</span>
-              )} */}
             </div>
           </div>
         </>
