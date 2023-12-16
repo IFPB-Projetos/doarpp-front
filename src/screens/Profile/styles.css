@@ -1,6 +1,6 @@
 .profile-body {
     display: flex;
-    padding: 50px;
+    padding: 0 20px;
     justify-content: space-between;
 }
 
@@ -29,6 +29,7 @@
     border: none;
     border-radius: 10px;
     color: var(--light-blue-green);
+    resize: none;
 }
 
 .profile-info input::placeholder, textarea::placeholder {
@@ -40,6 +41,7 @@
     background-image:none;
     background-color:transparent;
     box-shadow: none;
+    outline: none;
     color: var(--light-blue-green);
 }
 
@@ -51,6 +53,7 @@
 .profile-info textarea:read-only {
     width: 100%;
     height: 100px;
+    resize: none;
 }
 
 #personName {
@@ -80,7 +83,7 @@
     object-fit: cover;
 }
 
-.profile-image-label {
+#profile-image-label {
     cursor: pointer;
     width: 100%;
     height: 100%;
@@ -92,25 +95,26 @@
     display: inline-block;
 }
 
-.profile-image{
+#profile-image{
     min-width: 245px;
     min-height: 245px;
     max-width: 245px;
     max-height: 245px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
-.profile-fav {
+.profile-cards {
     width: 60%;
     padding: 20px;
 }
 
-.profile-fav h2 {
+.profile-cards h2 {
     text-align: center;
     color: var(--light-blue-green);
 }
 
-.profile-fav-grid {
+.profile-cards-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
@@ -119,6 +123,10 @@
 #username {
     text-align: center;
     font-size: 16px;
+}
+
+#profile-image-label[aria-disabled="true"] {
+    cursor:initial
 }
 
 input[type="file"]{

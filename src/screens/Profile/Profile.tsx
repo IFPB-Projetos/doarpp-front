@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, FormEvent, ChangeEvent } from "react";
 import { api } from "../../utils/api";
-import Card from "../../components/Card/Card";
 import phoneImg from "../../assets/phone.png";
 import mailImg from "../../assets/mail.png";
 import "./styles.css";
 import { Post } from "../../utils/types/Post";
 import { useAuth } from "../../contexts/auth";
 import InputPosition from "../../components/InputPosition/InputPosition";
-import { Location } from "../../utils/types/Location";
+import { User } from "../../utils/types/User";
+import CustomScrollMenu from "../../components/ScrollMenu/CustomScrollMenu";
 
 type Position = {
   lat: number,
@@ -16,14 +16,18 @@ type Position = {
 }
 
 export default function Profile() {
-  const [posts, setPosts] = useState<Post[]>();
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [username, setUserName] = useState("");
-  const [description, setDescription] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [location, setLocation] = useState<Location>();
+  const [profile, setProfile] = useState<User>({
+    name: "",
+    username: "",
+    image: "",
+    id: "",
+    email: "",
+    password: "",
+    description: "",
+    phone: "",
+    location: null,
+    posts: null
+  });
   const [position, setPosition] = useState<Position>({lat: -6.88634, lng: -38.5614})
   const [isEditing, setIsEditing] = useState(false);
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
@@ -40,39 +44,14 @@ export default function Profile() {
   async function getUser() {
     const response = await api.get(`/users/${userName}`);
 
-    if (response.data.id) {
-      setId(response.data.id);
-    }
     if(response.data.image){
         setImageSrc(response.data.image);
     }
-    if(response.data.name){
-        setName(response.data.name);
-    }
-    if(response.data.username){
-        setUserName(response.data.username);
-    }
-    if(response.data.description){
-        setDescription(response.data.description);
-    }
-    if(response.data.phone){
-        setPhone(response.data.phone);
-    }
-    if(response.data.email){
-        setEmail(response.data.email);
-    }
-    if(response.data.posts){
-        setPosts(response.data.posts)
-    }
-    if(response.data.location){
-      setLocation(response.data.location)
-    }
 
-    await pegarFavs();
-    
+    setProfile(response.data)
   }
 
-async function pegarFavs() {
+async function pegarFavs(id: string) {
   try {
     const favoritesResponse = await api.get(`/favorite/user/${id}`);
 
@@ -97,16 +76,16 @@ async function pegarFavs() {
   }
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.currentTarget.value);
+    setProfile({...profile, name: event.currentTarget.value});
   }
 
   const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.currentTarget.value);
+    setProfile({...profile, description: event.currentTarget.value});
   }
   
 
   const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPhone(event.currentTarget.value);
+    setProfile({...profile, phone: event.currentTarget.value});
   }
 
   const displayFileName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -153,139 +132,141 @@ async function pegarFavs() {
 
   useEffect(() => {
     getUser();
-  }, [])
+    pegarFavs(profile.id);
+  }, [profile.id])
 
   return (
     <>
       <div className="profile-body" onClick={handleOtherElementClick}>
-        <form className="profile-info" onSubmit={handleSubmit} encType="multipart/form-data" method="POST">
-          <input type="hidden" name="userId" value={id} />
+        {profile ? (
+        <>
+          <form className="profile-info" onSubmit={handleSubmit} encType="multipart/form-data" method="POST">
+            <input type="hidden" name="userId" value={profile.id} />
 
-          <div className="customFileUpload">
-            <input
-              type="file"
-              id="imagem"
-              name="imageUpload"
-              accept="image/*"
-              onChange={(e) => {
-                displayFileName(e);
-              }}
-              readOnly={!isEditing}
-            />
-            <label htmlFor="imagem" className="profile-image-label" onClick={handleFileInputClick}>
-              {imageSrc ? (
-                imageSrc.startsWith("data") ? (
-                  <img
-                    src={imageSrc}
-                    alt="Imagem selecionada"
-                    style={{ width: "100%", height: "100%", borderRadius: "100%", objectFit: "contain" }}
-                  />
-                ) : (
-                  <img
-                    src={pathImage + imageSrc}
-                    alt="Imagem back"
-                    className="profile-image"
-                  />
+            <div className="customFileUpload">
+              <input
+                type="file"
+                id="profile-image-input"
+                name="imageUpload"
+                accept="image/*"
+                onChange={(e) => {
+                  displayFileName(e);
+                }}
+                disabled={!isEditing}
+              />
+              <label htmlFor="profile-image-input" id="profile-image-label" onClick={handleFileInputClick} aria-disabled={!isEditing}>
+                {imageSrc ? (
+                  imageSrc.startsWith("data") ? (
+                    <img
+                      src={imageSrc}
+                      alt="Imagem selecionada"
+                      id="profile-image"
+                    />
+                  ) : (
+                    <img
+                      src={pathImage + imageSrc}
+                      alt="Imagem back"
+                      id="profile-image"
+                    />
+                  )
                 )
-              )
-                :
-                (
-                  <span>
-                    {fileName ? fileName : "Escolha um arquivo"}
-                  </span>
-                )}
-            </label>
-          </div>
+                  :
+                  (
+                    <span>
+                      {fileName ? fileName : "Escolha um arquivo"}
+                    </span>
+                  )}
+              </label>
+            </div>
 
-          <div>
-            <input
-              placeholder="Nome"
-              readOnly={!isEditing}
-              id="personName"
-              name="name"
-              value={name}
-              onChange={handleNameChange}
-            />
-
-            <input
-              placeholder="Nome de usuário"
-              readOnly
-              id="username"
-              name="username"
-              value={username}
-            />
-          </div>
-
-          <textarea
-            readOnly={!isEditing}
-            value={description}
-            name="description"
-            onChange={handleDescriptionChange}
-          />
-
-          <div className="profile-contact-info">
-            <span>Contatos</span>
             <div>
-              <label><img src={phoneImg} alt="Icone de telefone" /></label>
               <input
+                placeholder="Nome"
                 readOnly={!isEditing}
-                name="phone"
-                value={phone}
-                onChange={handlePhoneChange}
+                id="personName"
+                name="name"
+                value={profile.name}
+                onChange={handleNameChange}
               />
-            </div>
-            <div>
-              <label><img src={mailImg} alt="Icone de email" /></label>
+
               <input
+                placeholder="Nome de usuário"
                 readOnly
-                name="email"
-                value={email}
+                id="username"
+                name="username"
+                value={profile.username}
               />
             </div>
-          </div>
 
-          {id === context.user?.id && isEditing && (
-            <InputPosition position={position} setPosition={setPosition}/>
-          )}
+            <textarea
+              readOnly={!isEditing}
+              value={profile.description}
+              name="description"
+              onChange={handleDescriptionChange}
+            />
 
-          {id === context.user?.id && !isEditing && (
-            <button onClick={handleEditingChange}>editar</button>
-          )}
-          {id === context.user?.id && isEditing && (
-            <>
-              <button onClick={handleEditingChange}>voltar</button>
-              <button type="submit">salvar</button>
-            </>
-          )}
-        </form>
-
-        <div className="postsFav">
-
-          <div className="profile-fav">
-            <h2>Postagens</h2>
-            <div className="profile-fav-grid">
-              {posts?.map((post) => (
-                <Card post={post} key={post.id} />
-              ))}
-            </div>
-          </div>
-
-          <div className="profile-favoritos">
-            <h2>Favoritados</h2>
-            <div className="profile-fav-grid">
-              {favoritePosts?.map((post) => (
-                <Card
-                  key={post.id}
-                  post={post}
+            <div className="profile-contact-info">
+              <span>Contatos</span>
+              <div>
+                <label><img src={phoneImg} alt="Icone de telefone" /></label>
+                <input
+                  readOnly={!isEditing}
+                  name="phone"
+                  value={profile.phone}
+                  onChange={handlePhoneChange}
                 />
-              ))}
+              </div>
+              <div>
+                <label><img src={mailImg} alt="Icone de email" /></label>
+                <input
+                  readOnly
+                  name="email"
+                  value={profile.email}
+                />
+              </div>
+            </div>
+
+            {profile.id === context.user?.id && isEditing && (
+              <InputPosition position={position} setPosition={setPosition}/>
+            )}
+
+            {profile.id === context.user?.id && !isEditing && (
+              <button onClick={handleEditingChange}>editar</button>
+            )}
+            {profile.id === context.user?.id && isEditing && (
+              <>
+                <button onClick={handleEditingChange}>voltar</button>
+                <button type="submit">salvar</button>
+              </>
+            )}
+          </form>
+
+          <div className="profile-cards">
+
+            <div className="profile-posts">
+              <h2>Postagens</h2>
+              { profile.posts
+                ?
+                <CustomScrollMenu posts={profile.posts}/> 
+                :
+                <span>O usuário ainda não fez nenhum post!</span>
+              }
+            </div>
+
+            <div className="profile-favoritos">
+              <h2>Favoritados</h2>
+              { favoritePosts
+                ?
+                <CustomScrollMenu posts={favoritePosts}/> 
+                :
+                <span>O usuário ainda não fez nenhum post!</span>
+              }
             </div>
           </div>
-
-
-
-        </div>
-        
+        </>
+        ) : (
+          <span>Desculpe, o usuário não existe!</span>
+        )}
       </div>
     </>
   )

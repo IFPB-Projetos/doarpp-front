@@ -1,4 +1,5 @@
-import { Position } from "./Location";
+import { Location } from "./Location";
+import { Post } from "./Post";
 
 export type User = {
     id: string,
@@ -9,5 +10,6 @@ export type User = {
     password: string,
     description: string,
     phone: string,
-    location: Position,
+    location: Location | null,
+    posts: Post[] | null
 }
