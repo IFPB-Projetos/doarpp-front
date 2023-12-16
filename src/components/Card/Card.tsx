@@ -8,6 +8,7 @@ import favorite from "../../assets/Favorite.png";
 import { api } from "../../utils/api";
 
 import "./styles.css";
+import { useAuth } from "../../contexts/auth";
 
 interface CardPost {
   post: Post;
@@ -19,8 +20,9 @@ export default function Card({ post }: CardPost) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
 
-  const dadoLocalUser = localStorage.getItem("user") || "";
-  const user = JSON.parse(dadoLocalUser);
+  // const dadoLocalUser = localStorage.getItem("user") || "";
+  // const user = JSON.parse(dadoLocalUser);
+  const {user} = useAuth()
 
   useEffect(() => {
     checkIsFavorite();
@@ -31,27 +33,29 @@ export default function Card({ post }: CardPost) {
   };
 
   const handleImageClick = () => {
-    nav(`detalhes/${post.id}`);
+    nav(`/detalhes/${post.id}`);
   };
 
   const handleFavoriteClick = async () => {
     try {
-      if (isFavorite) {
-        await api.delete(`/favorite/${post.id}`);
-      } else {
-        await api.post("/favorite", {
-          userId: user.id,
-          postId: post.id,
-        });
-      }
+      if(user){
+        if (isFavorite) {
+          await api.delete(`/favorite/${post.id}`);
+        } else {
+          await api.post("/favorite", {
+            userId: user.id,
+            postId: post.id,
+          });
+        }
 
-      setAnimationClass("animate-heart");
+        setAnimationClass("animate-heart");
 
-      setTimeout(() => {
-        setAnimationClass("");
-      }, 1000);
+        setTimeout(() => {
+          setAnimationClass("");
+        }, 1000);
 
-      setIsFavorite(!isFavorite);
+        setIsFavorite(!isFavorite);
+    } else return
     } catch (error) {
       console.error("Erro ao favoritar/desfavoritar:", error);
     }
@@ -59,12 +63,14 @@ export default function Card({ post }: CardPost) {
 
   const checkIsFavorite = async () => {
     try {
-      const response = await api.get(`/favorite/user/${user.id}`);
-  
-      const favorites = response.data;
-      const isPostFavorite = favorites.some((fav: any) => fav.postId === post.id);
-  
-      setIsFavorite(isPostFavorite);
+      if(user){
+        const response = await api.get(`/favorite/user/${user.id}`);
+    
+        const favorites = response.data;
+        const isPostFavorite = favorites.some((fav: any) => fav.postId === post.id);
+    
+        setIsFavorite(isPostFavorite);
+      } else return
     } catch (error) {
       console.error("Erro ao verificar favorito:", error);
     }

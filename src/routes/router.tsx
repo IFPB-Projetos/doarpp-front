@@ -36,18 +36,13 @@ export const router = createBrowserRouter([
                 errorElement: <h1>Erro</h1>
             },
             {
-                path: "perfil/:userName",
+                path: "/perfil/:userName",
                 element: <Profile />,
                 errorElement: <h1>Erro</h1>
             },
             {
-                path: "/postagens/detalhes/:postId",
+                path: "/detalhes/:postId",
                 element: <PostDetail />,
-                errorElement: <h1>Erro</h1>
-            },
-            {
-                path: "perfil/me",
-                element: <Profile />,
                 errorElement: <h1>Erro</h1>
             },
             {

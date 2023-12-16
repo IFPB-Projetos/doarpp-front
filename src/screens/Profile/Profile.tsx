@@ -8,7 +8,6 @@ import "./styles.css";
 import { Post } from "../../utils/types/Post";
 import { useAuth } from "../../contexts/auth";
 import InputPosition from "../../components/InputPosition/InputPosition";
-import { Location } from "../../utils/types/Location";
 import { User } from "../../utils/types/User";
 
 type Position = {
