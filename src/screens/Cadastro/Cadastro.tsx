@@ -74,7 +74,7 @@ export default function Cadastro() {
         <h1>Doarpp</h1>
       </div>
 
-      <input type="text" id='inputNomeCadastro' value={userName} onChange={handleUserNameChange} placeholder='Usuário' />
+      <input type="text" id='inputNomeCadastro' value={userName} onChange={handleUserNameChange} placeholder='Nome de Usuário' />
       {userNameError && <span style={{ color: "red" }}>{userNameError}</span>}
 
       <input type="text" id='inputEmailCadastro' value={email} onChange={handleEmailChange} placeholder='Email' />
