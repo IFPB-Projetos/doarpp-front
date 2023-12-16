@@ -78,7 +78,7 @@ export default function Card({ post }: CardPost) {
 
   return (
     <>
-      <div className="card-div" >
+      <div className="card-div">
         <span className="card-title">{post.title}</span>
         <div className="image-div">
           <img

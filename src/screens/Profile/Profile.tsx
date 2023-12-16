@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, FormEvent, ChangeEvent } from "react";
 import { api } from "../../utils/api";
-import Card from "../../components/Card/Card";
 import phoneImg from "../../assets/phone.png";
 import mailImg from "../../assets/mail.png";
 import "./styles.css";
@@ -9,6 +8,7 @@ import { Post } from "../../utils/types/Post";
 import { useAuth } from "../../contexts/auth";
 import InputPosition from "../../components/InputPosition/InputPosition";
 import { User } from "../../utils/types/User";
+import CustomScrollMenu from "../../components/ScrollMenu/CustomScrollMenu";
 
 type Position = {
   lat: number,
@@ -245,7 +245,14 @@ async function pegarFavs(id: string) {
 
             <div className="profile-posts">
               <h2>Postagens</h2>
-              {profile.posts ? (
+              { profile.posts
+                ?
+                <CustomScrollMenu posts={profile.posts}/> 
+                :
+                <span>O usuário ainda não fez nenhum post!</span>
+              }
+
+              {/* {profile.posts ? (
               <div className="profile-cards-grid">
                 {profile.posts.map((post) => (
                   <Card post={post} key={post.id} />
@@ -253,12 +260,19 @@ async function pegarFavs(id: string) {
               </div>
               ) : (
                 <span>O usuário ainda não fez nenhum post!</span>
-              )}
+              )} */}
             </div>
 
             <div className="profile-favoritos">
               <h2>Favoritados</h2>
-              {favoritePosts ? (
+              { favoritePosts
+                ?
+                <CustomScrollMenu posts={favoritePosts}/> 
+                :
+                <span>O usuário ainda não fez nenhum post!</span>
+              }
+
+              {/* {favoritePosts ? (
               <div className="profile-cards-grid">
                 {favoritePosts.map((post, index) => (
                   <Card
@@ -269,7 +283,7 @@ async function pegarFavs(id: string) {
               </div>
               ) : (
                 <span>O usuário ainda não favoritou nenhum post!</span>
-              )}
+              )} */}
             </div>
           </div>
         </>

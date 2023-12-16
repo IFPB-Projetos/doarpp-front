@@ -5,7 +5,8 @@
   align-items: center;
   color: var(--light-blue-green);
   font-weight: bold;
-  position: relative; 
+  position: relative;
+  width: 350px;
 }
 
 .image-div {
