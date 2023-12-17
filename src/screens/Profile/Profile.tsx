@@ -8,7 +8,7 @@ import { Post } from "../../utils/types/Post";
 import { useAuth } from "../../contexts/auth";
 import InputPosition from "../../components/InputPosition/InputPosition";
 import { User } from "../../utils/types/User";
-import CustomScrollMenu from "../../components/ScrollMenu/CustomScrollMenu";
+import CustomScrollMenu from "../../components/CustomScrollMenu/CustomScrollMenu";
 
 type Position = {
   lat: number,
@@ -259,7 +259,7 @@ async function pegarFavs(id: string) {
                 ?
                 <CustomScrollMenu posts={favoritePosts}/> 
                 :
-                <span>O usuário ainda não fez nenhum post!</span>
+                <span>O usuário ainda não favoritou nenhum post!</span>
               }
             </div>
           </div>

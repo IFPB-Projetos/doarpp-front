@@ -6,6 +6,7 @@ import { Post } from "../../utils/types/Post";
 import { User } from "../../utils/types/User";
 import heart from "../../assets/Heart.png";
 import favorite from "../../assets/Favorite.png"
+import { useAuth } from "../../contexts/auth";
 
 export default function PostDetail() {
     const [post, setPost] = useState<Post>();
@@ -15,12 +16,7 @@ export default function PostDetail() {
     const [isFavorite, setIsFavorite] = useState<boolean>(false);
     const [animationClass, setAnimationClass] = useState("");
 
-    const dadoLocalUser = localStorage.getItem("user") || "";
-    let user: User;
-    if(dadoLocalUser){
-      user = JSON.parse(dadoLocalUser);
-    }
-
+    const {user} = useAuth();
     const {postId} = useParams();
 
     async function getPost(id:string | undefined){
@@ -76,7 +72,7 @@ export default function PostDetail() {
     useEffect(() => {
         getPost(postId);
         checkIsFavorite();
-    }, [])
+    }, [user, postId])
 
     return (
         <>

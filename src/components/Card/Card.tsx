@@ -8,6 +8,7 @@ import favorite from "../../assets/Favorite.png";
 import { api } from "../../utils/api";
 import "./styles.css";
 import { User } from "../../utils/types/User";
+import { useAuth } from "../../contexts/auth";
 
 interface CardPost {
   post: Post;
@@ -19,15 +20,16 @@ export default function Card({ post }: CardPost) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
 
-  const dadoLocalUser = localStorage.getItem("user") || "";
-  let user: User;
-  if(dadoLocalUser){
-    user = JSON.parse(dadoLocalUser);
-  }
+  // const dadoLocalUser = localStorage.getItem("user") || "";
+  // let user: User;
+  // if(dadoLocalUser){
+  //   user = JSON.parse(dadoLocalUser);
+  // }
+  const {user} = useAuth();
   
   useEffect(() => {
     checkIsFavorite();
-  }, []);
+  }, [user]);
 
   const handleClick = () => {
     nav(`/editarpost/${post.id}`, { state: { id: post.id } });
@@ -104,7 +106,7 @@ export default function Card({ post }: CardPost) {
           </div>
         </div>
 
-        <span className="card-org-name">{post.content}</span>
+        <span className="card-org-name">{user?.name}</span>
         <div className="card-date">
           <span className="date">05/11/2023</span>
           <span className="hours">Dom, 05:00</span>

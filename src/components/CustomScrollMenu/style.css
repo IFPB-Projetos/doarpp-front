@@ -1,0 +1,44 @@
+.react-horizontal-scrolling-menu--item {
+    margin-left: 20px;
+}
+
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.react-horizontal-scrolling-menu--arrow-left {
+    height: 20%;
+    align-self: center;
+    width: 45px;
+    height: 45px
+}
+
+.react-horizontal-scrolling-menu--arrow-right {
+    height: 20%;
+    align-self: center;
+    width: 45px;
+    height: 45px
+}
+
+.arrow-prev {
+    border-color: var(--gray);
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.arrow-next {
+    border-color: var(--gray);
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+}
