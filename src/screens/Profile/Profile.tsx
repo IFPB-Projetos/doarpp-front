@@ -133,7 +133,7 @@ async function pegarFavs(id: string) {
   useEffect(() => {
     getUser();
     pegarFavs(profile.id);
-  }, [profile.id])
+  }, [userName, profile.id])
 
   return (
     <>

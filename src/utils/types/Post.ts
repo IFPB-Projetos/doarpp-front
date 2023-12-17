@@ -3,5 +3,6 @@ export type Post = {
     title: string,
     content: string,
     image: string,
-    userId: string
+    userId: string,
+    createdAt: Date,
 }
