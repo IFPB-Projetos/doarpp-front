@@ -14,6 +14,14 @@
     gap: 5px;
 }
 
+.cadastroDiv form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
 .cadastroDiv .logoDiv h1{
     font-family: "Inter";
     font-weight: 700;

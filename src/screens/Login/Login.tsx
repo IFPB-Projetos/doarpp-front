@@ -32,7 +32,6 @@ export default function Login() {
 
     try {
       await context.login(email, password);
-      // Se o login for bem-sucedido, redirecionar para a página desejada
       nav("/postagens");
     } catch (error) {
       setError("Usuário não encontrado ou senha incorreta.");

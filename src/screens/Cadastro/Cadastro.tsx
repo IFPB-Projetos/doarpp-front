@@ -1,71 +1,41 @@
-import { useState, ChangeEvent, MouseEvent } from 'react';
+import { useForm } from 'react-hook-form';
+import { useState} from 'react';
 import { useAuth } from '../../contexts/auth';
 import logo from '../../assets/logo.svg';
-import "./style.css"
 import { useNavigate } from 'react-router-dom';
 
+import "./style.css";
+
 export default function Cadastro() {
-  const nav = useNavigate();
-  const context = useAuth();
-
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [userNameError, setUserNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [apiError, setApiError] = useState(""); // Novo estado para o erro da API
 
-  const handleUserNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
-    setUserNameError("");
-  }
+  const context = useAuth();
+  const nav = useNavigate();
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    setEmailError("");
-  }
+  const handleConfirmCadastro = async (data) => {
+    setApiError(""); 
 
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    setPasswordError("");
-  }
+    try {
+      const response = await context.signin(data.userName, data.email, data.password);
 
-  const handleConfirmCadastro = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    if (!userName.trim()) {
-      setUserNameError("Campo necessário");
-      return;
+      nav('/login');
+    } catch (error) {
+      if (error.response && error.response.status === 400 && error.response.data === 'user already exists') {
+        setApiError('Usuário já existe. Escolha um nome de usuário diferente.');
+      } else {
+        console.error('Erro ao cadastrar usuário:', error);
+        setApiError('Erro ao cadastrar usuário. Tente novamente mais tarde.');
+      }
     }
-
-    if (!email.trim()) {
-      setEmailError("Campo necessário");
-      return;
-    }
-
-    if (!password.trim()) {
-      setPasswordError("Campo necessário");
-      return;
-    }
-
-    if (!email.includes('@')) {
-      setEmailError("Email inválido");
-      return;
-    }
-
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (!passwordRegex.test(password)) {
-      setPasswordError("A senha deve conter pelo menos 8 caracteres, incluindo maiúsculos, minúsculos e números");
-      return;
-    }
-
-    context.signin(userName, email, password);
-  }
+  };
 
   const redirect = () => {
-    nav("/login")
-  }
+    nav('/login');
+  };
 
   return (
     <div className='cadastroDiv'>
@@ -74,18 +44,46 @@ export default function Cadastro() {
         <h1>Doarpp</h1>
       </div>
 
-      <input type="text" id='inputNomeCadastro' value={userName} onChange={handleUserNameChange} placeholder='Nome de Usuário' />
-      {userNameError && <span style={{ color: "red" }}>{userNameError}</span>}
+      <form onSubmit={handleSubmit(handleConfirmCadastro)}>
+        <input
+          type="text"
+          id='inputNomeCadastro'
+          placeholder='Nome de Usuário'
+          {...register('userName', { required: 'Necessario o nome do usuário' })}
+        />
+        {errors.userName && <span style={{ color: "red" }}>{errors.userName.message || userNameError}</span>}
 
-      <input type="text" id='inputEmailCadastro' value={email} onChange={handleEmailChange} placeholder='Email' />
-      {emailError && <span style={{ color: "red" }}>{emailError}</span>}
+        <input
+          type="text"
+          id='inputEmailCadastro'
+          placeholder='Email'
+          {...register('email', { required: 'Email necessario', pattern: { value: /\S+@\S+\.\S+/, message: 'Email inválido' } })}
+        />
+        {errors.email && <span style={{ color: "red" }}>{errors.email.message || emailError}</span>}
 
-      <input type="password" id='inputSenhaCadastro' value={password} onChange={handlePasswordChange} placeholder='Senha' />
-      {passwordError && <span style={{ color: "red" }}>{passwordError}</span>}
+        <input
+          type="password"
+          id='inputSenhaCadastro'
+          placeholder='Senha'
+          {...register('password', {
+            required: 'Senha não pode ser vazio',
+            pattern: {
+              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+              message: 'A senha deve conter pelo menos 8 caracteres, incluindo maiúsculos, minúsculos e números',
+            },
+          })}
+        />
+        {errors.password && <span style={{ color: "red" }}>{errors.password.message || passwordError}</span>}
 
-      <button id='buttonCadastro' onClick={handleConfirmCadastro}>Cadastrar</button>
+        {/* Exibir mensagem de erro da API */}
+        {apiError && <span style={{ color: "red" }}>{apiError}</span>}
 
-      <a href="" id='linkLogin' onClick={redirect}>Já possui uma conta? <br />Clique aqui para entrar!</a>
+        <button id='buttonCadastro' type="submit">Cadastrar</button>
+      </form>
+
+      <a href="" id='linkLogin' onClick={redirect}>
+        Já possui uma conta? <br />Clique aqui para entrar!
+      </a>
     </div>
   );
 }
