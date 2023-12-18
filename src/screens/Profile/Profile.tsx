@@ -8,6 +8,7 @@ import { Post } from "../../utils/types/Post";
 import { useAuth } from "../../contexts/auth";
 import InputPosition from "../../components/InputPosition/InputPosition";
 import { User } from "../../utils/types/User";
+import InputMask from "react-input-mask";
 import CustomScrollMenu from "../../components/ScrollMenu/CustomScrollMenu";
 
 type Position = {
@@ -84,8 +85,9 @@ async function pegarFavs(id: string) {
   
 
   const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setProfile({...profile, phone: event.currentTarget.value});
-  }
+    console.log(event.currentTarget.value);
+    setProfile({ ...profile, phone: event.currentTarget.value });
+  };
 
   const displayFileName = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
@@ -200,12 +202,15 @@ async function pegarFavs(id: string) {
               <span>Contatos</span>
               <div>
                 <label><img src={phoneImg} alt="Icone de telefone" /></label>
-                <input
-                  readOnly={!isEditing}
-                  name="phone"
-                  value={profile.phone}
-                  onChange={handlePhoneChange}
-                />
+                    
+                  <InputMask
+                    readOnly={!isEditing}
+                    mask="+99 (99) 99999-9999"
+                    maskChar="_"
+                    name="phone"
+                    value={profile.phone}
+                    onChange={handlePhoneChange}
+                  />
               </div>
               <div>
                 <label><img src={mailImg} alt="Icone de email" /></label>
