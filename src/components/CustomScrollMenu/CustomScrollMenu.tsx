@@ -44,7 +44,7 @@ function RightArrow(){
 }
 
 type Props = {
-    posts: Post[]
+    posts: Post[] | null
 }
 
 export default function CustomScrollMenu({posts}:Props){

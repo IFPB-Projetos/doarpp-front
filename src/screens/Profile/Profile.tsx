@@ -241,21 +241,21 @@ async function pegarFavs(id: string) {
 
             <div className="profile-posts">
               <h2>Postagens</h2>
-              { profile.posts
+              { profile.posts?.length !== 0
                 ?
                 <CustomScrollMenu posts={profile.posts}/> 
                 :
-                <span>O usuário ainda não fez nenhum post!</span>
+                <span className="profile-posts-warning">O usuário ainda não fez nenhum post!</span>
               }
             </div>
 
-            <div className="profile-favoritos">
+            <div className="profile-posts">
               <h2>Favoritados</h2>
-              { favoritePosts
+              { favoritePosts.length !== 0
                 ?
                 <CustomScrollMenu posts={favoritePosts}/> 
                 :
-                <span>O usuário ainda não favoritou nenhum post!</span>
+                <span className="profile-posts-warning">O usuário ainda não favoritou nenhum post!</span>
               }
             </div>
           </div>

@@ -3,9 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
 import lixeira from "../../assets/Delete.png";
 import "./styles.css";
+import { useAuth } from "../../contexts/auth";
 
 export default function FormPost() {
   const nav = useNavigate();
+
+  const { signed } = useAuth();
+
+  if(!signed){
+    nav("/login")
+  }
+
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
   const [imageSrc, setImageSrc] = useState("");
   const [title, setTitle] = useState("");

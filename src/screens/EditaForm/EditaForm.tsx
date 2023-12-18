@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { api } from "../../utils/api";
 import lixeira from "../../assets/Delete.png";
 import "./style.css";
+import { useAuth } from "../../contexts/auth";
 
 export default function EditaForm() {
   const nav = useNavigate();
@@ -19,6 +20,12 @@ export default function EditaForm() {
     imageSrc: "",
     userId: "",
   });
+
+  const { signed, user } = useAuth();
+
+  if(!signed && user?.id != postData?.userId){
+    nav("/login")
+  }
 
   const [titleError, setTitleError] = useState("");
   const [contentError, setContentError] = useState("");
