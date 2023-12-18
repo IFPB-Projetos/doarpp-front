@@ -43,7 +43,11 @@ export default function Menu(){
                         </li>
                         }
                         <li  className="menu-link profile">
-                            <Link to={`perfil/${context.user?.username}`}><img src={user} alt="Foto do usuário"/></Link>
+                            {context.user ? 
+                                <Link to={`perfil/${context.user?.username}`}><img src={user} alt="Foto do usuário"/></Link>
+                                : 
+                                <Link to="/login"><img src={user} alt="Foto do usuário"/></Link>
+                            }
                         </li>
                     </div>
                 </ul>

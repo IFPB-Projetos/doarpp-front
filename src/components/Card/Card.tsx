@@ -107,15 +107,20 @@ export default function Card({ post }: CardPost) {
             onClick={handleImageClick}
           />
           <div className="icons-container" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={editImage}
-              alt="icone editar"
-              id="editImage"
-              onClick={handleClick}
-            />
+            { user && user.id === post.userId ? (
+              <img
+                src={editImage}
+                alt="icone editar"
+                id="editImage"
+                onClick={handleClick}
+              />
+            ) : (
+              <span></span>
+            )}
             <img
               src={isFavorite ? heart : favorite}
               alt="icone favorito"
+              id="favIcon"
               onClick={handleFavoriteClick}
               className={`${animationClass}`}
             />
