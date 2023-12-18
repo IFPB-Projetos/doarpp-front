@@ -5,4 +5,5 @@ export type Post = {
     image: string,
     userId: string,
     createdAt: Date,
+    comments: Comment[]
 }

@@ -7,6 +7,7 @@ import { User } from "../../utils/types/User";
 import heart from "../../assets/Heart.png";
 import favorite from "../../assets/Favorite.png"
 import { useAuth } from "../../contexts/auth";
+import Comment from "../../components/Comment/Comment";
 
 export default function PostDetail() {
     const [post, setPost] = useState<Post>();
@@ -102,6 +103,16 @@ export default function PostDetail() {
                         <p id="post-detail-content">
                             {post.content}
                         </p>
+
+                        <div id="post-comments">
+                          <div id="post-comments-add">
+
+                          </div>
+
+                          <div id="post-comments-cards">
+                            <Comment />
+                          </div>
+                        </div>
                     </>
                 ) : (
                     <p>:ashdaushdq</p>
