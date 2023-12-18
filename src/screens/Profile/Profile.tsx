@@ -32,7 +32,6 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
   const [imageSrc, setImageSrc] = useState("");
-  const [isFileInputActive, setIsFileInputActive] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState<Post[]>([]);
 
 
@@ -121,14 +120,6 @@ async function pegarFavs(id: string) {
     }
   }
 
-  const handleFileInputClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-    e.stopPropagation();
-    setIsFileInputActive(true);
-  };
-
-  const handleOtherElementClick = () => {
-    setIsFileInputActive(false);
-  };
 
   useEffect(() => {
     getUser();
@@ -137,7 +128,7 @@ async function pegarFavs(id: string) {
 
   return (
     <>
-      <div className="profile-body" onClick={handleOtherElementClick}>
+      <div className="profile-body">
         {profile ? (
         <>
           <form className="profile-info" onSubmit={handleSubmit} encType="multipart/form-data" method="POST">
@@ -154,7 +145,7 @@ async function pegarFavs(id: string) {
                 }}
                 disabled={!isEditing}
               />
-              <label htmlFor="profile-image-input" id="profile-image-label" onClick={handleFileInputClick} aria-disabled={!isEditing}>
+              <label htmlFor="profile-image-input" id="profile-image-label"  aria-disabled={!isEditing}>
                 {imageSrc ? (
                   imageSrc.startsWith("data") ? (
                     <img
