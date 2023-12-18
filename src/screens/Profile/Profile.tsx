@@ -9,6 +9,7 @@ import { useAuth } from "../../contexts/auth";
 import InputPosition from "../../components/InputPosition/InputPosition";
 import { User } from "../../utils/types/User";
 import CustomScrollMenu from "../../components/CustomScrollMenu/CustomScrollMenu";
+import InputMask from "react-input-mask";
 
 type Position = {
   lat: number,
@@ -32,7 +33,6 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
   const [imageSrc, setImageSrc] = useState("");
-  const [isFileInputActive, setIsFileInputActive] = useState(false);
   const [favoritePosts, setFavoritePosts] = useState<Post[]>([]);
 
 
@@ -85,8 +85,9 @@ async function pegarFavs(id: string) {
   
 
   const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setProfile({...profile, phone: event.currentTarget.value});
-  }
+    console.log(event.currentTarget.value);
+    setProfile({ ...profile, phone: event.currentTarget.value });
+  };
 
   const displayFileName = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
@@ -121,14 +122,6 @@ async function pegarFavs(id: string) {
     }
   }
 
-  const handleFileInputClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-    e.stopPropagation();
-    setIsFileInputActive(true);
-  };
-
-  const handleOtherElementClick = () => {
-    setIsFileInputActive(false);
-  };
 
   useEffect(() => {
     getUser();
@@ -137,7 +130,7 @@ async function pegarFavs(id: string) {
 
   return (
     <>
-      <div className="profile-body" onClick={handleOtherElementClick}>
+      <div className="profile-body">
         {profile ? (
         <>
           <form className="profile-info" onSubmit={handleSubmit} encType="multipart/form-data" method="POST">
@@ -154,7 +147,7 @@ async function pegarFavs(id: string) {
                 }}
                 disabled={!isEditing}
               />
-              <label htmlFor="profile-image-input" id="profile-image-label" onClick={handleFileInputClick} aria-disabled={!isEditing}>
+              <label htmlFor="profile-image-input" id="profile-image-label"  aria-disabled={!isEditing}>
                 {imageSrc ? (
                   imageSrc.startsWith("data") ? (
                     <img
@@ -209,12 +202,15 @@ async function pegarFavs(id: string) {
               <span>Contatos</span>
               <div>
                 <label><img src={phoneImg} alt="Icone de telefone" /></label>
-                <input
-                  readOnly={!isEditing}
-                  name="phone"
-                  value={profile.phone}
-                  onChange={handlePhoneChange}
-                />
+                    
+                  <InputMask
+                    readOnly={!isEditing}
+                    mask="+99 (99) 99999-9999"
+                    maskChar="_"
+                    name="phone"
+                    value={profile.phone}
+                    onChange={handlePhoneChange}
+                  />
               </div>
               <div>
                 <label><img src={mailImg} alt="Icone de email" /></label>
