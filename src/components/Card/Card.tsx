@@ -7,7 +7,7 @@ import heart from "../../assets/Heart.png";
 import favorite from "../../assets/Favorite.png";
 import { api } from "../../utils/api";
 import "./styles.css";
-import { User } from "../../utils/types/User";
+import { useAuth } from "../../contexts/auth";
 
 interface CardPost {
   post: Post;
@@ -19,15 +19,33 @@ export default function Card({ post }: CardPost) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
 
-  const dadoLocalUser = localStorage.getItem("user") || "";
-  let user: User;
-  if(dadoLocalUser){
-    user = JSON.parse(dadoLocalUser);
+  const {user} = useAuth();
+
+  function formatDate(type: string, date:Date){
+    switch (type){
+      case "fullDate":
+        let fullDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+        return fullDate;
+
+      case "dayNameAndNumber":
+        let name = `${date.toLocaleDateString([], {weekday: "short"})}`
+        let formatedName = name.charAt(0).toUpperCase() + name.slice(1);
+
+
+        let hour = `${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit"})}`
+
+        let dayNameAndNumber = `${formatedName.replace(".", ", ") + hour}`
+        return dayNameAndNumber
+    }
   }
+
+  const date = new Date(post.createdAt);
+  const dateOfCreation = formatDate("fullDate", date)
+  const dayCreated = formatDate("dayNameAndNumber", date);
   
   useEffect(() => {
     checkIsFavorite();
-  }, []);
+  }, [user]);
 
   const handleClick = () => {
     nav(`/editarpost/${post.id}`, { state: { id: post.id } });
@@ -104,10 +122,10 @@ export default function Card({ post }: CardPost) {
           </div>
         </div>
 
-        <span className="card-org-name">{post.content}</span>
+        <span className="card-org-name">{user?.name}</span>
         <div className="card-date">
-          <span className="date">05/11/2023</span>
-          <span className="hours">Dom, 05:00</span>
+          <span className="date">{dateOfCreation}</span>
+          <span className="hours">{dayCreated}</span>
         </div>
       </div>
     </>
