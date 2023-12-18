@@ -146,3 +146,31 @@ input[type="file"]{
     text-align: center;
     align-self: center;
 }
+
+.btn_formUserFeed{
+    padding: 5px;
+    background-color: #D9D9D9;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 38.73px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+}
+
+.btn_formUserFeed.voltarButton{
+    background-color: rgb(133, 58, 58);
+    color: white;
+}
+
+.btn_formUserFeed img{
+    width: 30px;
+}

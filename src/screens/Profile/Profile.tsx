@@ -10,6 +10,7 @@ import InputPosition from "../../components/InputPosition/InputPosition";
 import { User } from "../../utils/types/User";
 import CustomScrollMenu from "../../components/CustomScrollMenu/CustomScrollMenu";
 import InputMask from "react-input-mask";
+import editarIcone from "../../assets/Edit.png"
 
 type Position = {
   lat: number,
@@ -227,12 +228,12 @@ async function pegarFavs(id: string) {
             )}
 
             {profile.id === context.user?.id && !isEditing && (
-              <button onClick={handleEditingChange}>editar</button>
+              <button onClick={handleEditingChange} className="btn_formUserFeed"><img src={editarIcone} alt="editar" /> editar</button>
             )}
             {profile.id === context.user?.id && isEditing && (
               <>
-                <button onClick={handleEditingChange}>voltar</button>
-                <button type="submit">salvar</button>
+                <button onClick={handleEditingChange} className="btn_formUserFeed voltarButton">voltar</button>
+                <button type="submit" className="btn_formUserFeed">salvar</button>
               </>
             )}
           </form>
