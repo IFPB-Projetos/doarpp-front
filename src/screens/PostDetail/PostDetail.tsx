@@ -8,6 +8,8 @@ import heart from "../../assets/Heart.png";
 import favorite from "../../assets/Favorite.png"
 import { useAuth } from "../../contexts/auth";
 import Comment from "../../components/Comment/Comment";
+import { TypeComment } from "../../utils/types/Comment";
+import InputComment from "../../components/InputComment/InputComment";
 
 export default function PostDetail() {
     const [post, setPost] = useState<Post>();
@@ -106,12 +108,18 @@ export default function PostDetail() {
 
                         <div id="post-comments">
                           <div id="post-comments-add">
-
+                            <InputComment userId={user ? user.id : "null"} postId={post.id}/>
                           </div>
 
-                          <div id="post-comments-cards">
-                            <Comment />
-                          </div>
+                          {post.comments.length !== 0 ? (
+                            <div id="post-comments-cards">
+                              {post.comments.map((comment) => (
+                                <Comment comment={comment} key={comment.id}/>
+                              ))}
+                            </div>
+                          ): (
+                            <span>Ainda não existem comentários</span>
+                          )}
                         </div>
                     </>
                 ) : (

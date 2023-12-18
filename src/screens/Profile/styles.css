@@ -23,7 +23,7 @@
     height: 100px;
 }
 
-.profile-info input, textarea {
+.profile-info input, .profile-info textarea {
     background-color: rgba(217, 217, 217, 0.25);
     padding: 2px;
     border: none;
@@ -32,11 +32,11 @@
     resize: none;
 }
 
-.profile-info input::placeholder, textarea::placeholder {
+.profile-info input::placeholder, .profile-info textarea::placeholder {
     color: var(--light-blue-green);
 }
 
-.profile-info input:read-only, textarea:read-only {
+.profile-info input:read-only, .profile-info textarea:read-only {
     border:none;
     background-image:none;
     background-color:transparent;
