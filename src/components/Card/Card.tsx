@@ -5,6 +5,7 @@ import editImage from "../../assets/Edit.png";
 import { Post } from "../../utils/types/Post";
 import heart from "../../assets/Heart.png";
 import favorite from "../../assets/Favorite.png";
+import deleteIcon from "../../assets/Delete.png"
 import { api } from "../../utils/api";
 import "./styles.css";
 import { useAuth } from "../../contexts/auth";
@@ -95,6 +96,17 @@ export default function Card({ post }: CardPost) {
     }
   };
 
+const handleDelete = async (postId : string) => {
+  try {
+    const response = await api.delete(`/posts/${postId}`);
+  
+    window.location.reload();
+  } catch (error) {
+    console.error("Erro ao deletar post:", error);
+  }
+};
+
+
   return (
     <>
       <div className="card-div">
@@ -106,14 +118,22 @@ export default function Card({ post }: CardPost) {
             id="postImage"
             onClick={handleImageClick}
           />
-          <div className="icons-container" onClick={(e) => e.stopPropagation()}>
-            { user && user.id === post.userId ? (
-              <img
-                src={editImage}
-                alt="icone editar"
-                id="editImage"
-                onClick={handleClick}
-              />
+         <div className="icons-container" onClick={(e) => e.stopPropagation()}>
+            {user && user.id === post.userId ? (
+              <>
+                <img
+                  src={editImage}
+                  alt="icone editar"
+                  id="editImage"
+                  onClick={handleClick}
+                />
+                <img
+                  src={deleteIcon}
+                  alt="icone deletar"
+                  id="deleteIcon"
+                  onClick={() => handleDelete(post.id)}
+                />
+              </>
             ) : (
               <span></span>
             )}

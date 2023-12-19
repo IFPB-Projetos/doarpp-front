@@ -90,3 +90,14 @@
     width: 100%;
   }
 }
+
+.card-div .icons-container #deleteIcon {
+  right: 40px; 
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.card-div .icons-container #deleteIcon:hover {
+  background-color: white;
+}
