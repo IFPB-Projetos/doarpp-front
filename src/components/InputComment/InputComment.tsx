@@ -16,6 +16,7 @@ export default function InputComment({postId}:Props){
         event.preventDefault();
         try {
             await api.post("/comments/", {content, postId})
+            window.location.reload()
           } catch (err) {
             console.log(err)
           }

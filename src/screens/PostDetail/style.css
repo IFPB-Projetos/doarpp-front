@@ -66,3 +66,14 @@
     font-weight: 700;
     color: var(--light-blue-green)
 }
+
+@media only screen and (max-width: 600px){
+    .post-detail-body {
+      width: 80%;
+    }
+
+    #post-detail-header {
+        width: 100%;
+        font-size: 14px;
+    }
+  }

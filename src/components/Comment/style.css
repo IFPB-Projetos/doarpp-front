@@ -24,7 +24,6 @@
 
 .comment-profile-picture {
     display: flex;
-    background-color: lightblue;
     border-radius: 50%;
     padding: 5px;
     height: 100%;

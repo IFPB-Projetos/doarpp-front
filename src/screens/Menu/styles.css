@@ -84,6 +84,16 @@
     object-fit: cover;
 }
 
+@media only screen and (max-width: 600px){
+    .brand span{
+        display: none;
+    }
+
+    .criar-post a {
+        height: 45px;
+    }
+}
+
 @media (max-width: 768px) {
 
     .menu-link a {
