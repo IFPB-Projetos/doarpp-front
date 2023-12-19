@@ -1,0 +1,55 @@
+#edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-header {
+    font-size: 24px;
+    color: white;
+    font-weight: 700;
+}
+
+#edit-content {
+    width: 30%;
+    height: 100px;
+    word-break: break-all;
+    resize: none;
+}
+
+#edit-buttons {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+}
+  
+#edit-buttons button:nth-child(1){
+    padding: 10px;
+    background-color: #D9D9D9;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 38.73px;
+   
+}
+
+#edit-buttons button:nth-child(2){
+    padding: 10px;
+    background-color: #0d3b59;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 38.73px;
+    text-align: center;
+}

@@ -1,0 +1,22 @@
+#input-comment-body {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    gap: 5px;
+}
+
+#input-comment-content {
+    width: 60%;
+    height: 100px;
+    padding: 10px;
+    resize: none;
+    border-radius: 10px;
+}
+
+#input-comment-button {
+    width: 20%;
+    height: 30px;
+    border-radius: 10px;
+    border-width: 1px;
+    align-self: flex-start;
+}

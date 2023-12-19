@@ -20,6 +20,7 @@
     "react-horizontal-scrolling-menu": "^4.1.1",
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^4.2.1",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.20.1",
     "react-select": "^5.8.0",
     "uuid": "^9.0.1"
@@ -31,6 +32,7 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-input-mask": "^3.0.5",
     "@types/react-leaflet": "^3.0.0",
+    "@types/react-modal": "^3.16.3",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
