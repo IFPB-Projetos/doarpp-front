@@ -46,3 +46,21 @@
   line-height: normal;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .telaMain h1 {
+    font-size: 4rem;
+  }
+
+  .boxTexto {
+    width: 90%;
+  }
+
+  .telaMain p {
+    font-size: 1.25rem;
+  }
+
+  .telaMain button {
+    font-size: 0.875rem;
+  }
+}
