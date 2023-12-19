@@ -13,8 +13,8 @@ type Props = {
 
 export default function Comment({comment}:Props){
     const nav = useNavigate();
-
-    const {signed} = useAuth();
+    const pathImage = import.meta.env.VITE_API_URL + "/imgs/";
+    const {user} = useAuth();
 
     async function handleDelete(){
         await api.delete(`/comments/${comment.id}`);
@@ -30,9 +30,9 @@ export default function Comment({comment}:Props){
         <div className="comment-body">
             <div className="comment-imgs">
                 <Link to={`/perfil/robson`}>
-                    <img src={userIcon} alt="Foto do usuário" className="comment-profile-picture"/>
+                    <img src={comment.user.image ? pathImage + comment.user.image : userIcon} alt="Foto do usuário" className="comment-profile-picture"/>
                 </Link>
-                {signed ?
+                {user?.id === comment.userId ?
                 <>
                     <img src={editIcon} onClick={handleEdit}/>
                     <img src={deleteIcon}  onClick={handleDelete}/>
