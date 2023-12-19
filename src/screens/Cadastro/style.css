@@ -75,3 +75,26 @@
     line-height: 38.73px;
     text-decoration: none;
 }
+
+@media (max-width: 768px) {
+    .cadastroDiv {
+      margin: 20px;
+    }
+  
+    #inputNomeCadastro,
+    #inputEmailCadastro,
+    #inputSenhaCadastro {
+      width: 300px;
+    }
+  
+    #buttonCadastro {
+      width: 180px;
+      font-size: 30px;
+    }
+
+    #linkLogin{
+        font-size: 20px;
+    }
+
+
+  }
