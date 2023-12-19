@@ -122,5 +122,38 @@
     text-align: center;
 }
 
+@media only screen and (max-width: 600px) {
+    
+    .telaForm{
+        margin: 20px;    
+    }
+    
+    .frasePrincipalTelaMain p{
+        font-size: 50px;
+    }
+  
+    .formCriarPost form input[type="text"]{
+        width: 300px;
+    }
+  
+    .formCriarPost form textarea {
+      width: 300px;
+    }
+  
+    .botoesForm {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .botoesForm button {
+      width: 190px;
+    }
+
+    .fileNameLabel{
+        width: 70%;
+        height: 100%;       
+    }
+  }
+
 
   
