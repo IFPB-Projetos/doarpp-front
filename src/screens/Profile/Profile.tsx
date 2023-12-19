@@ -10,7 +10,8 @@ import InputPosition from "../../components/InputPosition/InputPosition";
 import { User } from "../../utils/types/User";
 import CustomScrollMenu from "../../components/CustomScrollMenu/CustomScrollMenu";
 import InputMask from "react-input-mask";
-import editarIcone from "../../assets/Edit.png"
+import editarIcone from "../../assets/Edit.png";
+import leaveIcon from "../../assets/Logout.png"
 
 type Position = {
   lat: number,
@@ -32,7 +33,7 @@ export default function Profile() {
   });
   const [position, setPosition] = useState<Position>({lat: -6.88634, lng: -38.5614})
   const [isEditing, setIsEditing] = useState(false);
-  const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
+  const [fileName, setFileName] = useState("Nenhuma foto");
   const [imageSrc, setImageSrc] = useState("");
   const [favoritePosts, setFavoritePosts] = useState<Post[]>([]);
 
@@ -74,6 +75,10 @@ async function pegarFavs(id: string) {
 
   const handleEditingChange = () => {
     setIsEditing(!isEditing);
+  }
+
+  const handleLogout = () => {
+    context.logout();
   }
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -224,16 +229,19 @@ async function pegarFavs(id: string) {
             </div>
 
             {profile.id === context.user?.id && isEditing && (
-              <InputPosition position={position} setPosition={setPosition}/>
+                <InputPosition position={position} setPosition={setPosition}/>
             )}
 
             {profile.id === context.user?.id && !isEditing && (
-              <button onClick={handleEditingChange} className="btn_formUserFeed"><img src={editarIcone} alt="editar" /> editar</button>
+              <button onClick={handleLogout} className="btn_formUserFeed"><img src={leaveIcon} alt="sair" />Sair</button>
+            )}
+            {profile.id === context.user?.id && !isEditing && (
+              <button onClick={handleEditingChange} className="btn_formUserFeed"><img src={editarIcone} alt="editar" />Editar</button>
             )}
             {profile.id === context.user?.id && isEditing && (
               <>
-                <button onClick={handleEditingChange} className="btn_formUserFeed voltarButton">voltar</button>
-                <button type="submit" className="btn_formUserFeed">salvar</button>
+                <button onClick={handleEditingChange} className="btn_formUserFeed voltarButton">Voltar</button>
+                <button type="submit" className="btn_formUserFeed">Salvar</button>
               </>
             )}
           </form>

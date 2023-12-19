@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
 import lixeira from "../../assets/Delete.png";
@@ -10,10 +10,6 @@ export default function FormPost() {
 
   const { signed } = useAuth();
 
-  if(!signed){
-    nav("/login")
-  }
-
   const [fileName, setFileName] = useState("Nenhum arquivo selecionado");
   const [imageSrc, setImageSrc] = useState("");
   const [title, setTitle] = useState("");
@@ -24,6 +20,12 @@ export default function FormPost() {
 
   const dadoLocalUser = localStorage.getItem("user") || "";
   const user = JSON.parse(dadoLocalUser);
+
+  useEffect(() => {
+    if(!signed){
+      nav("/login")
+    }
+  })
 
   const displayFileName = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;

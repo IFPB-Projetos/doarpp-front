@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { api } from "../../utils/api";
 import "./style.css";
+import { useAuth } from "../../contexts/auth";
 
 type Props = {
     postId: string
@@ -8,6 +9,8 @@ type Props = {
 
 export default function InputComment({postId}:Props){
     const [content, setContent] = useState("");
+
+    const {signed} = useAuth();
 
     async function handleCreateComment(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
@@ -20,14 +23,19 @@ export default function InputComment({postId}:Props){
 
     return (
         <form id="input-comment-body" onSubmit={handleCreateComment} method="POST">
-            <input type="hidden" value={postId} name="postId" />
-            <textarea
-                placeholder="Comentário"
-                name="content"
-                id="input-comment-content"
-                value={content}
-                onChange={(event) => setContent(event.target.value)}/>
-            <button type="submit" id="input-comment-button">Enviar</button>
+            {signed ?
+            <>
+                <input type="hidden" value={postId} name="postId" />
+                <textarea
+                    placeholder="Comentário"
+                    name="content"
+                    id="input-comment-content"
+                    value={content}
+                    onChange={(event) => setContent(event.target.value)}/>
+                
+                <button type="submit" id="input-comment-button">Enviar</button>
+            </>
+            : null}
         </form>
     )
 }

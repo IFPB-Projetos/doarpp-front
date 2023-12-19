@@ -5,6 +5,7 @@ import deleteIcon from "../../assets/Delete.png";
 import "./style.css";
 import { TypeComment } from "../../utils/types/Comment";
 import { api } from "../../utils/api";
+import { useAuth } from "../../contexts/auth";
 
 type Props = {
     comment: TypeComment
@@ -12,6 +13,8 @@ type Props = {
 
 export default function Comment({comment}:Props){
     const nav = useNavigate();
+
+    const {signed} = useAuth();
 
     async function handleDelete(){
         await api.delete(`/comments/${comment.id}`);
@@ -29,8 +32,12 @@ export default function Comment({comment}:Props){
                 <Link to={`/perfil/robson`}>
                     <img src={userIcon} alt="Foto do usuário" className="comment-profile-picture"/>
                 </Link>
-                <img src={editIcon} onClick={handleEdit}/>
-                <img src={deleteIcon}  onClick={handleDelete}/>
+                {signed ?
+                <>
+                    <img src={editIcon} onClick={handleEdit}/>
+                    <img src={deleteIcon}  onClick={handleDelete}/>
+                </>
+                : null}
             </div>
 
             <div className="comment-text">

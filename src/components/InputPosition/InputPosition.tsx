@@ -17,7 +17,7 @@ type Props = {
 export default function InputPosition({position, setPosition}:Props){
     return (
         <>
-            <div id="map-body">
+            <div id="profile-map-body">
                 <MapContainer center={[-6.88634, -38.5614]} zoom={20} scrollWheelZoom={false}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

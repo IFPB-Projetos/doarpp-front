@@ -174,3 +174,7 @@ input[type="file"]{
 .btn_formUserFeed img{
     width: 30px;
 }
+
+#profile-map-input {
+    height: 100px;
+}

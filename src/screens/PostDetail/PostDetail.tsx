@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./style.css";
 import { useEffect, useState } from "react";
 import { api } from "../../utils/api";
@@ -98,7 +98,7 @@ export default function PostDetail() {
                         <img id="post-detail-image"src={pathImage + post.image}/>
 
                         <div id="post-detail-author">
-                            <img id="post-detail-author-image" src={pathImage + owner.image}/>
+                            <Link to={`/perfil/${owner.username}`}><img id="post-detail-author-image" src={pathImage + owner.image}/></Link>
                             <span id="post-detail-author-name">{owner.username}</span>
                         </div>
 
