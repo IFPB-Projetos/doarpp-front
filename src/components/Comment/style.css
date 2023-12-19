@@ -4,18 +4,31 @@
     background-color: white;
     box-shadow: -1px 2px 2px 2px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    width: 70%;
+    width: 50%;
     padding: 10px;
     margin-bottom: 10px;
 }
 
+.comment-imgs {
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    height: 100%;
+}
+
+.comment-imgs img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .comment-profile-picture {
     display: flex;
-    background-color: white;
+    background-color: lightblue;
     border-radius: 50%;
     padding: 5px;
-    width: 40%;
     height: 100%;
+    width: 10%;
 }
 
 .comment-profile-picture img {
@@ -27,4 +40,12 @@
 .comment-author {
     font-size: 20px;
     font-weight: 700;
+}
+
+.comment-text {
+    width: 80%
+}
+
+.comment-content {
+    word-break: break-all;
 }

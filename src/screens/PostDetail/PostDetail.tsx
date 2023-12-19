@@ -108,7 +108,7 @@ export default function PostDetail() {
 
                         <div id="post-comments">
                           <div id="post-comments-add">
-                            <InputComment userId={user ? user.id : "null"} postId={post.id}/>
+                            <InputComment postId={post.id}/>
                           </div>
 
                           {post.comments.length !== 0 ? (

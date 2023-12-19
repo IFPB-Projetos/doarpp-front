@@ -1,12 +1,12 @@
 #input-comment-body {
     display: flex;
-    flex-direction: column;
     width: 50%;
     height: 100%;
     gap: 5px;
 }
 
 #input-comment-content {
+    width: 60%;
     height: 100px;
     padding: 10px;
     resize: none;

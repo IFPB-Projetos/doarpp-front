@@ -9,6 +9,7 @@ import EditaForm from "../screens/EditaForm/EditaForm";
 import App from "../App";
 import Login from "../screens/Login/Login";
 import PostDetail from "../screens/PostDetail/PostDetail";
+import EditComment from "../screens/EditComment/EditComment";
 
 export const router = createBrowserRouter([
     {
@@ -60,6 +61,11 @@ export const router = createBrowserRouter([
                 element: <EditaForm/>,
                 errorElement: <h1>Error</h1>
             },
+            {
+                path: "/editarcomment/:id",
+                element: <EditComment />,
+                errorElement: <h1>Error</h1>
+            }
         ],
         
     },
